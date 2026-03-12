@@ -80,8 +80,6 @@ After all questions are answered, generate a complete blog post template in mark
    - Reinforces the goal
    - Includes the CTAs naturally
 
-7. **A CTA section** at the end with all the calls to action formatted as links.
-
 ---
 
 ## Rules
