@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:diataxis.fr)",
       "WebFetch(domain:docs.dapr.io)",
-      "WebFetch(domain:diagrid.io)"
+      "WebFetch(domain:diagrid.io)",
+      "WebFetch(domain:www.diagrid.io)"
     ]
   }
 }
