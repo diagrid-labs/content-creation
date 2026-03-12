@@ -73,7 +73,7 @@ After all questions are answered, generate a complete blog post template in mark
    - Explanation: Pose the question or tension the post resolves, hint at the insight.
    - Reference: State what is documented and who it's for.
 
-4. **The structured middle section** — section headings with brief guidance notes on what to write in each section. Leave the actual content blank for the user to fill in. Structure depends on document type (see frameworks below). Find relevant links on https://diagrid.io and https://docs.dapr.io to include in this section.
+4. **The structured middle section** — section headings with brief guidance notes on what to write in each section. Leave the actual content blank for the user to fill in. Structure depends on document type (see frameworks below). Find relevant links on https://www.diagrid.io and https://docs.dapr.io to include in this section.
 
 6. **A written summary/conclusion paragraph** (~100-150 words) that:
    - Recaps the key takeaway
