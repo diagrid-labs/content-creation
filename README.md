@@ -12,7 +12,7 @@ or
 
 "Create an introductory blog post about Dapr Agents and what makes this different compared to other agentic frameworks"
 
-You will be asked several questions about the target audience, intent, and call to actions. The result is a markdown file with a blog structure with suggestions for titles and content for each of the sections. You can either complete the sections yourself or can do this for you.
+You will be asked several questions about the target audience, intent, and call to actions. The result is a markdown file with a blog structure with suggestions for titles and content for each of the sections. You can either complete the sections yourself or Claude can do this for you.
 
 Example results:
 
