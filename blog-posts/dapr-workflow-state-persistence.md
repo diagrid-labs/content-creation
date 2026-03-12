@@ -99,10 +99,3 @@ Link to Dapr workflow patterns: https://docs.dapr.io/developing-applications/bui
 ## Summary
 
 The Dapr workflow engine takes the burden of state management and failure recovery off your shoulders. By persisting every step as history events in a state store, and using replay to recover workflows from exactly where they left off, Dapr gives your workflows durability without added complexity in your code. The key insight is that your workflow function is replayed against its saved history, skipping completed work and resuming from the last checkpoint. As long as your workflow code is deterministic, the engine handles crashes, restarts, and scaling transparently. To see the workflow engine in action, [watch this walkthrough on YouTube](https://www.youtube.com/watch?v=eK6snfIAfJs). Ready to try it yourself? [Sign up for a free Catalyst account](https://catalyst.diagrid.io/) and start building durable workflows today.
-
----
-
-## Calls to Action
-
-- [Sign up for a free Catalyst account](https://catalyst.diagrid.io/)
-- [Watch: Dapr Workflow explained on YouTube](https://www.youtube.com/watch?v=eK6snfIAfJs)
