@@ -2,7 +2,7 @@
 prompt: "Create a blog post that explains how the Dapr workflow persists its state."
 type: Explanation
 audience: Developers new to workflow engines and new to Dapr
-goal: Understand how the Dapr workflow engine works
+intent: Understand how the Dapr workflow engine works
 ctas:
   - Sign up for a free Catalyst account at https://catalyst.diagrid.io/
   - Watch the Dapr workflow video at https://www.youtube.com/watch?v=eK6snfIAfJs
