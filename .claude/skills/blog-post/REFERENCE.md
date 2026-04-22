@@ -15,6 +15,7 @@ Topic argument: workflow durability and state persistence
 Interview responses
 -------------------
 - Topic: workflow durability and state persistence
+- Content type: blog
 - Document type: Explanation
 - Target audience: Backend developers who want to build reliable distributed applications
 - Intent: Understand how Dapr Workflow provides reliability
@@ -28,7 +29,7 @@ Interview responses
 -->
 ```
 
-Include one line per interview step (Steps 1-7). If the user skipped a step or answered "none", record that explicitly (for example `- Key points to cover: none`). Preserve the user's exact wording (including any typos) in the `Initial prompt` line.
+Include one line per interview step (Steps 1-8). The `Content type` line must record the exact lowercase value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`), and this same value must appear as the `contentType` field in the front-matter. If the user skipped a step or answered "none", record that explicitly (for example `- Key points to cover: none`). Preserve the user's exact wording (including any typos) in the `Initial prompt` line.
 
 ---
 

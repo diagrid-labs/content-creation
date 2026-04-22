@@ -19,7 +19,23 @@ If the user provided a topic via `$ARGUMENTS`, restate your understanding of it 
 
 > What is the topic or subject of this blog post?
 
-### Step 2: Document Type
+### Step 2: Content Type
+
+Ask the user to pick the content type. This value is written to the `contentType` field in the front-matter and determines how the website categorizes the post. Present exactly these options (lowercase, hyphenated as shown) and do not proceed until the user picks one:
+
+> What type of content is this? Pick one:
+>
+> 1. `blog` — a standard written blog post (default for most posts)
+> 2. `case-study` — a customer success story
+> 3. `event` — promotion or recap of an event (conference, meetup, workshop)
+> 4. `podcast` — a podcast episode or podcast announcement
+> 5. `press` — press release or company news for media
+> 6. `video` — a video post, or a written companion to a video
+> 7. `webinar` — promotion or recap of a webinar
+
+Record the exact lowercase value the user picks. Use it verbatim for the `contentType` front-matter field in the generated template.
+
+### Step 3: Document Type
 
 Present the document types and ask the user to pick one. The first four are the Diataxis technical-content types; the rest are marketing-content types:
 
@@ -40,17 +56,17 @@ Present the document types and ask the user to pick one. The first four are the 
 > 8. **Company news** — Shares company milestones such as funding, partnerships, hiring, or awards. Focus is on *the news, its significance, and what's next*. ("Today we are announcing...")
 > 9. **Opinion / Thought leadership** — Takes a position on an industry trend or debate. Focus is on *argument, perspective, and insight*. ("We believe that...")
 
-### Step 3: Target Audience
+### Step 4: Target Audience
 
 > Who is the target audience for this blog post? Be as specific as possible.
 > For example: "Backend developers new to event-driven architecture", "Platform engineers evaluating service meshes", "Technical decision makers comparing managed services".
 
-### Step 4: Intent
+### Step 5: Intent
 
 > What is the intent of this blog post? What outcome or action do you want from the reader after they finish reading? (This is not the CTA, this is mentioned in the next question.)
 > For example: "Understand how Dapr pub/sub works", "Understand how to use new feature A in Catalyst", "Sign up for a webinar to learn about topic X".
 
-### Step 5: Calls to Action
+### Step 6: Calls to Action
 
 > What are the call to actions (CTAs) you want to include? You can pick multiple:
 > For example:
@@ -60,7 +76,7 @@ Present the document types and ask the user to pick one. The first four are the 
 > 4. Watch a YouTube video on our Diagrid channel: https://www.youtube.com/@diagridio (ask a follow up question to which video should be linked)
 > 5. Something else (ask a follow up question what the CTA should be)
 
-### Step 6: Key Points
+### Step 7: Key Points
 
 > Are there any specific points, features, or sections you already know you want to cover?
 > For example:
@@ -70,9 +86,9 @@ Present the document types and ask the user to pick one. The first four are the 
 > 4. A real-world scenario or pattern (e.g., "long-running approval workflow", "saga orchestration")
 > 5. Something else (tell me what)
 
-### Step 7: Internal Links
+### Step 8: Internal Links
 
-Based on the topic, document type, audience, intent, and key points gathered so far, search `https://www.diagrid.io` and `https://docs.diagrid.io` (use `WebSearch` or `WebFetch`) for highly relevant pages — product pages, docs, blog posts, tutorials, reference material — that would make good internal links in this post. Choose the five best matches and present them as numbered suggestions.
+Based on the topic, content type, document type, audience, intent, and key points gathered so far, search `https://www.diagrid.io` and `https://docs.diagrid.io` (use `WebSearch` or `WebFetch`) for highly relevant pages — product pages, docs, blog posts, tutorials, reference material — that would make good internal links in this post. Choose the five best matches and present them as numbered suggestions.
 
 > Here are five internal Diagrid links that look relevant to this post. Which should be included? You can pick any combination, add your own, or skip.
 >
@@ -92,7 +108,7 @@ After all questions are answered, generate a complete blog post template in mark
 
 1. **Metadata section with initial prompt and interview responses** - Show the input the user gave when using this skill and answering the interview questions. Use the exact prompt and inputs. See [REFERENCE.md](REFERENCE.md) for the required format and an example.
 
-2. **Website front-matter** — Immediately after the prompt metadata section, include a YAML front-matter block required for the website. See [REFERENCE.md](REFERENCE.md) for the required fields and an example. Pre-fill the fields you can infer from the interview answers (title, slug, excerpt, category, categories, tags, seoTitle, seoDescription, canonicalUrl, image paths based on slug) and leave placeholders for fields that need user input (publishedAt, publishDateTime, author, featured).
+2. **Website front-matter** — Immediately after the prompt metadata section, include a YAML front-matter block required for the website. See [REFERENCE.md](REFERENCE.md) for the required fields and an example. Pre-fill the fields you can infer from the interview answers (title, slug, excerpt, category, categories, tags, `contentType` set to the exact value picked in Step 2, seoTitle, seoDescription, canonicalUrl, image paths based on slug) and leave placeholders for fields that need user input (publishedAt, publishDateTime, author, featured).
 
    **Required:** Immediately after the closing `---` of the front-matter, add this exact line on its own line:
 
@@ -160,8 +176,9 @@ Output the final template as a markdown file inside the `blog-posts/` folder. Na
 After generating the blog post file, run the following checklist against the generated content. If any item fails, fix it before telling the user the file is ready.
 
 Structure and metadata
-- [ ] Prompt metadata block is present at the top of the file and includes one line per interview step (1-7)
+- [ ] Prompt metadata block is present at the top of the file and includes one line per interview step (1-8)
 - [ ] YAML front-matter block appears immediately after the prompt metadata, with all required fields from REFERENCE.md
+- [ ] `contentType` in the front-matter matches exactly the value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`)
 - [ ] The bold image note ("Images are not created by this skill...") is present immediately after the closing `---` of the front-matter
 - [ ] 3-5 title suggestions are present
 - [ ] Intro paragraph (~100-150 words) is written out, not left as a placeholder
