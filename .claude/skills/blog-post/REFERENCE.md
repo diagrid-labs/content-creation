@@ -25,7 +25,7 @@ Interview responses
 - Key points to cover: workflow replay, comparisons with other approaches
 - Internal links:
   1. https://www.diagrid.io/catalyst — managed Dapr runtime referenced in the body and summary
-  2. https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview/ — Dapr Workflow overview
+  2. https://www.diagrid.io/dapr-university/dapr-workflow — Dapr Workflow track for Dapr Univerisity
 - Post length: Medium (~1200 words)
 -->
 ```

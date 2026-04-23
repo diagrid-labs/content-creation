@@ -72,9 +72,8 @@ Present the document types and ask the user to pick one. The first four are the 
 > For example:
 > 1. Sign up for a free Catalyst account at https://catalyst.diagrid.io/
 > 2. Join the Dapr Discord at http://bit.ly/dapr-discord
-> 3. Join our Diagrid Discord at https://diagrid.ws/diagrid-discord
-> 4. Watch a YouTube video on our Diagrid channel: https://www.youtube.com/@diagridio (ask a follow up question to which video should be linked)
-> 5. Something else (ask a follow up question what the CTA should be)
+> 3. Watch a YouTube video on our Diagrid channel: https://www.youtube.com/@diagridio (ask a follow up question to which video should be linked)
+> 4. Something else (ask a follow up question what the CTA should be)
 
 ### Step 7: Key Points
 
