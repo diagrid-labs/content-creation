@@ -100,13 +100,41 @@ Based on the topic, content type, document type, audience, intent, and key point
 
 If the user adds their own links or rejects all suggestions, record their final choice. Later, weave the accepted links into the appropriate sections of the generated template (intro, body sections, or summary), not all at once at the end.
 
+### Step 9: Post Length
+
+Recommend a target length based on the document type picked in Step 3. Use the word-count ranges in the table below to fill in the three options, then give your own recommendation with a one-line reason grounded in the document type, target audience, and key points.
+
+| Document type | Short | Medium | Long |
+|---|---|---|---|
+| Tutorial | 800 | 1500 | 2500 |
+| How-to | 500 | 900 | 1400 |
+| Explanation | 700 | 1200 | 1800 |
+| Reference | 500 | 1000 | 2000 |
+| Product announcement | 400 | 700 | 1100 |
+| Event announcement | 300 | 500 | 800 |
+| Case study | 600 | 1000 | 1500 |
+| Company news | 300 | 500 | 800 |
+| Opinion / Thought leadership | 600 | 1000 | 1500 |
+
+Ask:
+
+> How long should this post be? Pick one:
+>
+> 1. Short (~X words) — quick read, single focus, minimal setup
+> 2. Medium (~Y words) — standard depth with supporting detail
+> 3. Long (~Z words) — deep coverage with full context and examples
+>
+> My recommendation: **[Short | Medium | Long]** (~N words) — [one-line reason tying document type, audience, and key points to the chosen length].
+
+Record the chosen option and its word count as the target length for the post.
+
 ---
 
 ## Template Generation
 
 After all questions are answered, generate a complete blog post template in markdown. The template MUST follow the Diataxis structure for the chosen document type (see below). Include:
 
-1. **Metadata section with initial prompt and interview responses** - Show the input the user gave when using this skill and answering the interview questions. Use the exact prompt and inputs. See [REFERENCE.md](REFERENCE.md) for the required format and an example.
+1. **Metadata section with initial prompt and interview responses** - Show the input the user gave when using this skill and answering the interview questions (Steps 1-9, including the chosen post length). Use the exact prompt and inputs. See [REFERENCE.md](REFERENCE.md) for the required format and an example.
 
 2. **Website front-matter** — Immediately after the prompt metadata section, include a YAML front-matter block required for the website. See [REFERENCE.md](REFERENCE.md) for the required fields and an example. Pre-fill the fields you can infer from the interview answers (title, slug, excerpt, category, categories, tags, `contentType` set to the exact value picked in Step 2, seoTitle, seoDescription, canonicalUrl, image paths based on slug) and leave placeholders for fields that need user input (publishedAt, publishDateTime, author, featured).
 
@@ -148,7 +176,7 @@ After all questions are answered, generate a complete blog post template in mark
 ## Rules
 
 1. Use second-person perspective. 
-2. The post body (from the intro paragraph through the summary paragraph) must be under 1200 words. Title variations are excluded.
+2. The post body (from the intro paragraph through the summary paragraph) should match the target length picked in Step 9, within ±15%. Title variations are excluded.
 3. Don't use the following in the post:
    - em dashes
    - bold text formatting in lists
@@ -176,7 +204,7 @@ Output the final template as a markdown file inside the `blog-posts/` folder. Na
 After generating the blog post file, run the following checklist against the generated content. If any item fails, fix it before telling the user the file is ready.
 
 Structure and metadata
-- [ ] Prompt metadata block is present at the top of the file and includes one line per interview step (1-8)
+- [ ] Prompt metadata block is present at the top of the file and includes one line per interview step (1-9)
 - [ ] YAML front-matter block appears immediately after the prompt metadata, with all required fields from REFERENCE.md
 - [ ] `contentType` in the front-matter matches exactly the value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`)
 - [ ] The bold image note ("Images are not created by this skill...") is present immediately after the closing `---` of the front-matter
@@ -185,6 +213,7 @@ Structure and metadata
 - [ ] Middle section has commented guidance under each heading, with content left blank for the user
 - [ ] Summary paragraph (~100-150 words) is written out and includes every CTA the user picked
 - [ ] Every internal link the user picked appears somewhere in the intro, body, or summary
+- [ ] Post body word count (intro through summary) is within ±15% of the target length picked in Step 9
 
 Style rules (scan the whole file)
 - [ ] No em dashes (`—`)

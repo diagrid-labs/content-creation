@@ -26,10 +26,11 @@ Interview responses
 - Internal links:
   1. https://www.diagrid.io/catalyst — managed Dapr runtime referenced in the body and summary
   2. https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview/ — Dapr Workflow overview
+- Post length: Medium (~1200 words)
 -->
 ```
 
-Include one line per interview step (Steps 1-8). The `Content type` line must record the exact lowercase value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`), and this same value must appear as the `contentType` field in the front-matter. If the user skipped a step or answered "none", record that explicitly (for example `- Key points to cover: none`). Preserve the user's exact wording (including any typos) in the `Initial prompt` line.
+Include one line per interview step (Steps 1-9). The `Content type` line must record the exact lowercase value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`), and this same value must appear as the `contentType` field in the front-matter. If the user skipped a step or answered "none", record that explicitly (for example `- Key points to cover: none`). Preserve the user's exact wording (including any typos) in the `Initial prompt` line.
 
 ---
 
