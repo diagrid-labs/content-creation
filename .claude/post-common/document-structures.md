@@ -1,77 +1,10 @@
-## Prompt Metadata
+# Document Structures
 
-Every generated blog post must begin with an HTML comment block that captures the skill invocation and the interview responses. This block is the first thing in the file, above the website front-matter.
-
-Example:
-
-```markdown
-<!--
-Prompt metadata
-===============
-Skill: blog-post
-Initial prompt: Create a blogpost about workflow durability and state persistance
-Topic argument: workflow durability and state persistence
-
-Interview responses
--------------------
-- Topic: workflow durability and state persistence
-- Content type: blog
-- Document type: Explanation
-- Target audience: Backend developers who want to build reliable distributed applications
-- Intent: Understand how Dapr Workflow provides reliability
-- CTAs:
-  1. Sign up for a free Catalyst account at https://catalyst.diagrid.io/
-  2. Watch the YouTube video: https://youtu.be/T4EHE-q_F34?si=ulDi7KpUkDmBVXFa
-- Key points to cover: workflow replay, comparisons with other approaches
-- Internal links:
-  1. https://www.diagrid.io/catalyst — managed Dapr runtime referenced in the body and summary
-  2. https://www.diagrid.io/dapr-university/dapr-workflow — Dapr Workflow track for Dapr Univerisity
-- Post length: Medium (~1200 words)
--->
-```
-
-Include one line per interview step (Steps 1-9). The `Content type` line must record the exact lowercase value the user picked in Step 2 (one of: `blog`, `case-study`, `event`, `podcast`, `press`, `video`, `webinar`), and this same value must appear as the `contentType` field in the front-matter. If the user skipped a step or answered "none", record that explicitly (for example `- Key points to cover: none`). Preserve the user's exact wording (including any typos) in the `Initial prompt` line.
+Section templates for each document type listed in [document-types.md](document-types.md). Every post's body should follow the structure for its chosen document type.
 
 ---
 
-## Website Front-Matter
-
-Every generated blog post must include a YAML front-matter block placed **immediately after the prompt metadata section**. This front-matter is required by the website for rendering, SEO, and categorization.
-
-Example:
-
-```yaml
----
-title: "The Latest State of Dapr Report 2026"
-slug: "state-of-dapr-2026"
-excerpt: "The 2026 State of Dapr report is now available. See how the Dapr community is using workflows, AI agents, and MCP servers, and what it takes to move from prototype to production."
-publishedAt: 2026-04-16
-publishDateTime: "2026-04-16T08:00:00-08:00"
-author: "mark-fussell"
-category: "Dapr"
-categories:
-  - "Dapr"
-  - "Agentic AI"
-  - "Workflows"
-tags:
-  - "dapr"
-  - "ai-agents"
-  - "workflows"
-  - "mcp"
-  - "state-of-dapr"
-featuredImage: "/images/blog/state-of-dapr-2026/featured.webp"
-ogImage: "/images/blog/state-of-dapr-2026/featured.webp"
-featured: true
-contentType: blog
-seoTitle: "State of Dapr 2026: AI Agents, Workflows & MCP Trends"
-seoDescription: "The 2026 State of Dapr report reveals how developers are using Dapr for AI agents, durable workflows, and MCP servers, and what it takes to run them reliably in production."
-canonicalUrl: "https://www.diagrid.io/blog/state-of-dapr-2026"
----
-```
-
----
-
-## Diataxis Structure by Document Type
+## Technical content (Diataxis)
 
 ### Tutorial Structure
 
@@ -150,7 +83,7 @@ Template sections:
 
 ---
 
-## Marketing Document Structures
+## Marketing content
 
 Marketing posts follow different conventions than the Diataxis types. They tend to lead with the news and drive a clear action.
 
