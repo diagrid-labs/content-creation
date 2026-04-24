@@ -32,11 +32,15 @@ If the user provided a topic via `$ARGUMENTS`, restate your understanding of it 
 
 ### Step 2: Content Type
 
-Read [content-types.md](../../post-common/content-types.md) and present the list verbatim to the user. Do not proceed until the user picks one. Record the exact lowercase value the user picks — it will be written to the `contentType` field in the front-matter.
+Read [content-types.md](../../post-common/content-types.md) and present the list verbatim to the user. The content type controls how the website categorises the post (it is distinct from the document type asked in Step 3, which is the post's rhetorical shape). Ask:
+
+> What content type is this post? Pick one from the list.
+
+Do not proceed until the user picks one. Record the exact lowercase value the user picks — it will be written to the `contentType` field in the front-matter.
 
 ### Step 3: Document Type
 
-Read [document-types.md](../../post-common/document-types.md) and present the list verbatim. Ask:
+Read [document-types.md](../../post-common/document-types.md) and present the list verbatim. The document type determines the post's structure and rhetorical shape (distinct from the content type picked in Step 2). Ask:
 
 > What type of post are you writing? Pick the one that best fits.
 
@@ -71,7 +75,7 @@ Read [document-types.md](../../post-common/document-types.md) and present the li
 
 ### Step 8: Internal Links
 
-Based on the topic, content type, document type, audience, intent, and key points gathered so far, search `https://www.diagrid.io` and `https://docs.diagrid.io` (use `WebSearch` or `WebFetch`) for highly relevant pages — product pages, docs, blog posts, tutorials, reference material — that would make good internal links in this post. Choose the five best matches and present them as numbered suggestions.
+Based on the topic, content type, document type, audience, intent, and key points gathered so far, find highly relevant pages (product pages, docs, blog posts, tutorials, reference material) on `https://www.diagrid.io` and `https://docs.diagrid.io` that would make good internal links in this post. Prefer `WebSearch` with `site:www.diagrid.io` and `site:docs.diagrid.io` queries as the primary method; use `WebFetch` only to verify a specific candidate URL. Choose the five best matches and present them as numbered suggestions.
 
 > Here are five internal Diagrid links that look relevant to this post. Which should be included? You can pick any combination, add your own, or skip.
 >
@@ -129,7 +133,7 @@ After all questions are answered, generate a complete post template in markdown.
    - Company news: Lead with the news itself and why it matters to readers.
    - Opinion / Thought leadership: Open with the claim and the tension it addresses.
 
-5. **The structured middle section** — section headings matching the document-type template in [document-structures.md](../../post-common/document-structures.md), with brief guidance notes on what to write in each section. Leave the actual content blank for the user to fill in. Weave in relevant internal links.
+5. **The structured middle section** — section headings matching the document-type template in [document-structures.md](../../post-common/document-structures.md), with brief guidance notes on what to write in each section. Leave the actual prose content blank for the user to fill in. Accepted internal links from Step 8 should appear in the written intro (item 4) and summary (item 6); additional links may be referenced inside the HTML-comment guidance notes for specific sections where they fit naturally.
 
 6. **A written summary/conclusion paragraph** (~100-150 words) that:
    - Recaps the key takeaway
@@ -142,6 +146,16 @@ After all questions are answered, generate a complete post template in markdown.
 
 Every post must obey the rules in [style-rules.md](../../post-common/style-rules.md). Apply them while drafting, not only at verification time.
 
+Highest-friction rules to keep in mind while drafting:
+
+- Use second-person voice ("you", "your"). First-person plural ("we") is only appropriate in Tutorials and marketing voice.
+- No em dashes (or en dashes / double hyphens used as em dashes). Use commas, semicolons, or separate sentences.
+- No bold text inside list items.
+- No emojis.
+- Never use these banned words: journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master.
+- Titles must not combine two sentences with a colon.
+- Titles must not use the "From ... To ..." structure.
+
 ---
 
 ## Output Format
@@ -152,7 +166,7 @@ Output the final template as a markdown file inside the `blog-posts/` folder. Na
 
 ## Verification
 
-After generating the post file, run the review-post skill on the generated file and fix any Blocker- or Warning-level findings before telling the user the file is ready.
+After generating the post file, invoke the `review-post` skill via the Skill tool, passing the generated file's path as the argument. Fix any Blocker- or Warning-level findings before telling the user the file is ready.
 
 ---
 

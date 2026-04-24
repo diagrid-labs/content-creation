@@ -42,7 +42,7 @@ Accept the post path via `$ARGUMENTS`. If no path is given, ask the user which f
 
 ### Metadata
 
-**Only check this if the skill is called by the write-post skill.**
+Run these checks only if a prompt metadata HTML comment block is present at the top of the file. If it is absent, skip this entire section.
 
 - [ ] Prompt metadata HTML comment block is present at the top of the file with one line per interview step (1-9)
 - [ ] YAML front-matter block appears immediately after the prompt metadata and includes every required field listed in [front-matter.md](../../post-common/front-matter.md)
@@ -66,18 +66,19 @@ Accept the post path via `$ARGUMENTS`. If no path is given, ask the user which f
 
 Apply every rule in [style-rules.md](../../post-common/style-rules.md). Use `Grep` on the file to scan efficiently:
 
-- [ ] No em dashes (scan for the em dash character)
+- [ ] No em dashes or common substitutes (scan with regex `[—–]|--` to catch em dash U+2014, en dash U+2013, and double hyphen)
 - [ ] No emojis inside list items
 - [ ] No bold text formatting inside list items (scan for `^\s*[-*\d].*\*\*`)
-- [ ] None of the banned words appear: journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master (case-insensitive)
+- [ ] None of the banned words appear: journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master (case-insensitive). **Note:** "harness" and "master" are also banned in their domain-specific senses (e.g. "master branch") — flag every hit and let the author decide.
 - [ ] No title combines two sentences with a colon
 - [ ] No title uses the "From ... To ..." structure
-- [ ] Written copy uses second-person perspective
+- [ ] Second-person voice spot-check: read the intro and summary and confirm the narrative addresses the reader as "you". First-person plural ("we", "our") is acceptable in Tutorials and marketing voice. This is a judgement call, not a grep.
 
 ### Length
 
 - [ ] Count words from the opening intro paragraph through the closing summary paragraph (exclude front-matter, HTML comments, titles, and guidance placeholders)
 - [ ] Word count is within ±15% of the target on the `Post length` line of the prompt metadata. Verify the target against [post-length.md](../../post-common/post-length.md) for the post's document type.
+- [ ] If no prompt metadata is present, use the document-type's closest bucket (Short / Medium / Long) in [post-length.md](../../post-common/post-length.md) based on the measured word count. Report the matched bucket and flag a Warning if the count falls outside ±15% of any of the three buckets.
 
 ## Report format
 
