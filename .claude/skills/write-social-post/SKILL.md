@@ -225,6 +225,18 @@ For each platform, generate the required number of variations following the conv
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
 9. **Dev.to** gets one share blurb pointing readers to the canonical article. Lead with the technical takeaway.
+10. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
+    - Report, ebook, guide, whitepaper: `Download the report now: <link>`, `Get the full report: <link>`
+    - Blog post, article, tutorial: `Read the post to learn more: <link>`, `Read the full breakdown: <link>`
+    - Webinar, workshop (upcoming): `Sign up for the webinar now: <link>`, `Save your seat: <link>`
+    - Webinar, talk (recording): `Watch the recording: <link>`, `Watch the full session: <link>`
+    - Video, demo: `Watch the demo: <link>`, `See it in action: <link>`
+    - Event (upcoming): `Register now: <link>`, `Join us: <link>`
+    - Podcast: `Listen to the episode: <link>`
+    - Docs, reference: `See the docs: <link>`, `Read the docs: <link>`
+    - Repo, sample, code: `Try it yourself: <link>`, `Grab the code: <link>`
+    - Press release, announcement: `Read the announcement: <link>`
+    Reddit and Discord bodies should weave the CTA into a sentence (e.g., `Full report here: <link>`) rather than the marketing-style "Download now". Vary the lead-in between Variation 1 and Variation 2 on the same platform so the two variations do not feel identical.
 
 ## Verification
 
