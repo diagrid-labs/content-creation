@@ -82,7 +82,7 @@ Use `Grep` on the file to scan efficiently.
 
 - [ ] No banned words (case-insensitive): journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master (Blocker)
 - [ ] No em dashes, en dashes, or `--` substitutes (regex `[—–]|--`) (Blocker)
-- [ ] X, LinkedIn, Bluesky variations include the canonical handle once when the platform's `social-style-rules.md` entry lists one (Warning if missing or wrong handle, e.g., `@diagrid` on X instead of `@diagridio`)
+- [ ] X, LinkedIn, and Bluesky variations do NOT include a Diagrid handle (`@diagridio`, `@Diagrid`, `@diagrid.io`, `@diagrid`) (Warning if present)
 - [ ] Hashtag count per platform variation matches `social-style-rules.md`: X 2-3, LinkedIn 3-5, Bluesky 1-2, Reddit / Discord / Dev.to 0 (Warning if outside range)
 - [ ] All hashtags used are from the canonical Diagrid hashtag list in `social-style-rules.md` (Warning if a tag is not on the list)
 - [ ] Reddit variations contain no emojis and no hashtags (Blocker if either is present)
@@ -107,7 +107,7 @@ Group findings by severity. Be specific: include the platform, variation number,
 - Displayed character count does not match the actual count
 - Hashtag count outside the platform's range
 - Hashtag not on the canonical list
-- Missing or wrong handle on X / LinkedIn / Bluesky
+- Diagrid handle present on X / LinkedIn / Bluesky
 - Two variations on the same platform are too similar (same hook, same opening, same framing)
 
 ### Suggestions (nice to have)
