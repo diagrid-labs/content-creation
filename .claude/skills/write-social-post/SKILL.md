@@ -2,7 +2,7 @@
 name: write-social-post
 description: Generate ready-to-post social media content for X, LinkedIn, Bluesky, Reddit, Dapr Discord, and Dev.to from a short interview. Produces a single markdown file with two variations per platform (one for Dev.to). Auto-applies UTM parameters to diagrid.io and docs.diagrid.io links. Use when the user wants to draft, plan, or write social posts to promote a topic, link, blog post, video, webinar, event, or announcement.
 argument-hint: "[topic]"
-allowed-tools: Read, Write, Edit, Glob, WebSearch, WebFetch
+allowed-tools: Read, Write, Edit, Glob, WebSearch, WebFetch, Bash
 ---
 
 # Social Post Generator
@@ -251,6 +251,18 @@ For each platform, generate the required number of variations following the conv
     - Repo, sample, code: `Try it yourself: <link>`, `Grab the code: <link>`
     - Press release, announcement: `Read the announcement: <link>`
     Reddit and Discord bodies should weave the CTA into a sentence (e.g., `Full report here: <link>`) rather than the marketing-style "Download now". Vary the lead-in between Variation 1 and Variation 2 on the same platform so the two variations do not feel identical.
+
+## Counting characters
+
+Use the in-repo script to count characters for every variation. Do not write ad-hoc Python.
+
+```bash
+python scripts/social_chars.py count --text "<full variation text including the link>" --limit <platform limit>
+```
+
+The script prints `N/LIMIT` on stdout (e.g. `437/500`). Use that exact value for the `_Characters: N/M_` line in the output file. The script normalizes the text the same way the reviewer will (CRLF→LF, strip whitespace, count Unicode code points), so the count you write is the count the reviewer will see.
+
+For platforms with both a title and a body (Reddit, Dapr Discord, Dev.to), call the script twice per variation: once with the title and the title's limit, once with the body and the body's limit.
 
 ## Verification
 

@@ -2,7 +2,7 @@
 name: review-social-post
 description: Review a generated social-post markdown file for character limits per platform, UTM parameter correctness on diagrid.io links, banned words, em dashes, hashtag and handle conventions, and structural completeness. Use when the user wants to review, validate, or check a social-post file in the social-posts/ folder before publishing.
 argument-hint: "[file-path]"
-allowed-tools: Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, Bash
 ---
 
 # Social Post Reviewer
@@ -29,8 +29,9 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
    - The list of `## <Platform>` headings present.
    - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit, Dapr Discord, and Dev.to) the `**Title:**` and `**Body:**` lines.
 3. Load the shared references.
-4. Run every check in the [Review checklist](#review-checklist).
-5. Produce a report in the [Report format](#report-format).
+4. Run the deterministic length validator: `python scripts/social_chars.py validate <path> --json`. Parse the JSON. Each entry where `over: true` is a length **Blocker**. Each non-empty `structural_errors` entry is a structural **Blocker**. Do not compute character counts inline; the script is the source of truth.
+5. Run every remaining check in the [Review checklist](#review-checklist) (UTM, banned words, em dashes, hashtag count, handle presence, title rules). Length and structural completeness are already covered by step 4.
+6. Produce a report in the [Report format](#report-format).
 
 ## Review checklist
 
@@ -44,26 +45,17 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
 
 ### Structure
 
-- [ ] All six `## <Platform>` headings are present in this order: `## X`, `## LinkedIn`, `## Bluesky`, `## Reddit`, `## Dapr Discord`, `## Dev.to`
+The script's `structural_errors` cover: missing platform sections, wrong number of variations per platform, and missing `**Title:**` / `**Body:**` for Reddit, Dapr Discord, and Dev.to. The remaining structural checks below stay in the skill:
+
+- [ ] Prompt-metadata HTML comment block is present at the top of the file
+- [ ] YAML front-matter block appears immediately after, with `topic`, `link`, `utmMedium`, `utmCampaign`, `generated` fields
+- [ ] `generated` date matches the `YYYY-MM-DD` prefix in the filename
 - [ ] Each platform section has a `**Final link:**` line directly under the heading
 - [ ] The Reddit section has a `**Subreddit(s):**` line (value is a comma-separated list or `generic`)
-- [ ] X, LinkedIn, Bluesky, Reddit, Dapr Discord each have exactly two `### Variation N` blocks
-- [ ] Dev.to has exactly one `### Variation 1` block
-- [ ] Each Reddit variation contains both `**Title:**` and `**Body:**`
-- [ ] Each Dapr Discord variation contains both `**Title:**` and `**Body:**`
-- [ ] The Dev.to variation contains both `**Title:**` and `**Body:**`
 
 ### Length (Blocker if exceeded)
 
-Count characters of the post text only (exclude the heading, the `### Variation N` line, and the trailing `_Characters: N/M_` line).
-
-- [ ] X variation ≤ 500 characters
-- [ ] LinkedIn variation ≤ 350 characters
-- [ ] Bluesky variation ≤ 300 characters
-- [ ] Reddit title ≤ 120 characters; Reddit body ≤ 500 characters
-- [ ] Dapr Discord title ≤ 120 characters; Dapr Discord body ≤ 350 characters
-- [ ] Dev.to title ≤ 120 characters; Dev.to body ≤ 500 characters
-- [ ] The displayed `_Characters: N/M_` value matches the actual count (Warning if off, Blocker if the actual count exceeds the limit)
+All length checks come from `scripts/social_chars.py validate --json`. See workflow step 4. Do not count characters inline.
 
 ### UTM
 
