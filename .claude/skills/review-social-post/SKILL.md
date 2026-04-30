@@ -57,7 +57,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
 
 Count characters of the post text only (exclude the heading, the `### Variation N` line, and the trailing `_Characters: N/M_` line).
 
-- [ ] X variation ≤ 280 characters
+- [ ] X variation ≤ 500 characters
 - [ ] LinkedIn variation ≤ 350 characters
 - [ ] Bluesky variation ≤ 300 characters
 - [ ] Reddit title ≤ 120 characters; Reddit body ≤ 500 characters

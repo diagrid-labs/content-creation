@@ -22,7 +22,7 @@ Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky,
 
 | Platform | Title limit | Body / post limit | Variations | UTM source |
 |---|---|---|---|---|
-| X | — | 280 | 2 | `x` |
+| X | — | 500 | 2 | `x` |
 | LinkedIn | — | 350 | 2 | `linkedin` |
 | Bluesky | — | 300 | 2 | `bluesky` |
 | Reddit | 120 | 500 | 2 | `reddit` |
@@ -121,12 +121,12 @@ generated: <YYYY-MM-DD>
 ### Variation 1
 <post text>
 
-_Characters: N/280_
+_Characters: N/500_
 
 ### Variation 2
 <post text>
 
-_Characters: N/280_
+_Characters: N/500_
 
 ## LinkedIn
 **Final link:** <link with utm_source=linkedin appended if Diagrid; otherwise original>
@@ -230,7 +230,8 @@ For each platform, generate the required number of variations following the conv
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
 9. **Dev.to** gets one variation with a title (max 120 chars) and a body share blurb (max 500 chars) pointing readers to the canonical article. Lead the body with the technical takeaway.
-10. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
+10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit, Discord, and Dev.to bodies stay prose unless the source material is genuinely list-shaped.
+11. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
     - Report, ebook, guide, whitepaper: `Download the report now: <link>`, `Get the full report: <link>`
     - Blog post, article, tutorial: `Read the post to learn more: <link>`, `Read the full breakdown: <link>`
     - Webinar, workshop (upcoming): `Sign up for the webinar now: <link>`, `Save your seat: <link>`
