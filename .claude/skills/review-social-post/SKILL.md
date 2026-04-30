@@ -1,0 +1,126 @@
+---
+name: review-social-post
+description: Review a generated social-post markdown file for character limits per platform, UTM parameter correctness on diagrid.io links, banned words, em dashes, hashtag and handle conventions, and structural completeness. Use when the user wants to review, validate, or check a social-post file in the social-posts/ folder before publishing.
+argument-hint: "[file-path]"
+allowed-tools: Read, Glob, Grep
+---
+
+# Social Post Reviewer
+
+You are a social media editor reviewing a generated post file before publication. Your job is to verify the file meets Diagrid's social standards and flag anything that needs fixing. You do not rewrite the post, only report findings.
+
+## Shared references
+
+Load these when needed:
+
+- [social-style-rules.md](../../post-common/social-style-rules.md) — per-platform conventions, hashtag list, handles, emoji policy, character limits
+- [style-rules.md](../../post-common/style-rules.md) — banned words, em-dash rule, title rules
+
+## Inputs
+
+Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which file to review or use `Glob` on `social-posts/**/*.md` to list candidates.
+
+## Review workflow
+
+1. Read the file.
+2. Extract these values:
+   - The prompt-metadata HTML comment block (topic, link, UTM medium, UTM campaign, subreddits, generated date).
+   - The YAML front-matter (`topic`, `link`, `utmMedium`, `utmCampaign`, `generated`).
+   - The list of `## <Platform>` headings present.
+   - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit and Discord) the `**Title:**` and `**Body:**` lines.
+3. Load the shared references.
+4. Run every check in the [Review checklist](#review-checklist).
+5. Produce a report in the [Report format](#report-format).
+
+## Review checklist
+
+### Metadata
+
+- [ ] Prompt-metadata HTML comment block is present at the top of the file
+- [ ] YAML front-matter block appears immediately after, with `topic`, `link`, `utmMedium`, `utmCampaign`, `generated` fields
+- [ ] `generated` date matches the `YYYY-MM-DD` prefix in the filename
+- [ ] If the link host is `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`, then `utmMedium` is set (not null)
+- [ ] If the link host is NOT a Diagrid host, then `utmMedium` and `utmCampaign` are both `null`
+
+### Structure
+
+- [ ] All six `## <Platform>` headings are present in this order: `## X`, `## LinkedIn`, `## Bluesky`, `## Reddit`, `## Dapr Discord`, `## Dev.to`
+- [ ] Each platform section has a `**Final link:**` line directly under the heading
+- [ ] The Reddit section has a `**Subreddit(s):**` line (value is a comma-separated list or `generic`)
+- [ ] X, LinkedIn, Bluesky, Reddit, Dapr Discord each have exactly two `### Variation N` blocks
+- [ ] Dev.to has exactly one `### Variation 1` block
+- [ ] Each Reddit variation contains both `**Title:**` and `**Body:**`
+- [ ] Each Dapr Discord variation contains both `**Title:**` and `**Body:**`
+
+### Length (Blocker if exceeded)
+
+Count characters of the post text only (exclude the heading, the `### Variation N` line, and the trailing `_Characters: N/M_` line).
+
+- [ ] X variation ≤ 280 characters
+- [ ] LinkedIn variation ≤ 350 characters
+- [ ] Bluesky variation ≤ 300 characters
+- [ ] Reddit title ≤ 120 characters; Reddit body ≤ 500 characters
+- [ ] Dapr Discord title ≤ 120 characters; Dapr Discord body ≤ 350 characters
+- [ ] Dev.to variation ≤ 350 characters
+- [ ] The displayed `_Characters: N/M_` value matches the actual count (Warning if off, Blocker if the actual count exceeds the limit)
+
+### UTM
+
+For every `**Final link:**` value:
+
+- [ ] If the host is `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`:
+  - Contains `utm_source=<platform>` where platform matches the section it appears in (`x`, `linkedin`, `bluesky`, `reddit`, `discord`, or `dev-to`)
+  - Contains `utm_medium=<value>` where value matches the `utmMedium` field in the front-matter
+  - If the prompt metadata's UTM campaign is not `N/A` and not `none`, contains `utm_campaign=<value>` matching that field
+  - Does not contain duplicate `utm_*` keys
+- [ ] If the host is NOT a Diagrid host: contains no `utm_*` parameters
+
+### Style
+
+Use `Grep` on the file to scan efficiently.
+
+- [ ] No banned words (case-insensitive): journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master (Blocker)
+- [ ] No em dashes, en dashes, or `--` substitutes (regex `[—–]|--`) (Blocker)
+- [ ] X, LinkedIn, Bluesky variations include the canonical handle once when the platform's `social-style-rules.md` entry lists one (Warning if missing or wrong handle, e.g., `@diagrid` on X instead of `@diagridio`)
+- [ ] Hashtag count per platform variation matches `social-style-rules.md`: X 2-3, LinkedIn 3-5, Bluesky 1-2, Reddit / Discord / Dev.to 0 (Warning if outside range)
+- [ ] All hashtags used are from the canonical Diagrid hashtag list in `social-style-rules.md` (Warning if a tag is not on the list)
+- [ ] Reddit variations contain no emojis and no hashtags (Blocker if either is present)
+- [ ] Reddit and Discord titles obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure) (Blocker)
+
+## Report format
+
+Group findings by severity. Be specific: include the platform, variation number, and a quoted snippet or line reference for each finding, plus a suggested fix.
+
+### Blockers (must fix before publishing)
+
+- Length over the platform limit
+- Banned words
+- Em dashes / en dashes / `--`
+- Missing required structure (missing platform section, wrong number of variations, missing Title/Body for Reddit or Discord)
+- Missing or wrong UTM parameters on Diagrid links; UTM parameters present on non-Diagrid links
+- Reddit emojis or hashtags
+- Title rule violations on Reddit / Discord titles
+
+### Warnings (should fix)
+
+- Displayed character count does not match the actual count
+- Hashtag count outside the platform's range
+- Hashtag not on the canonical list
+- Missing or wrong handle on X / LinkedIn / Bluesky
+- Two variations on the same platform are too similar (same hook, same opening, same framing)
+
+### Suggestions (nice to have)
+
+- Stronger hook for the first line
+- Tighter phrasing where the variation is close to the limit
+- Topic-relevant hashtag from the canonical list that was not used
+
+End the report with a verdict on one line:
+
+- **Ready to publish** — zero Blockers and zero Warnings
+- **Needs fixes** — zero Blockers, one or more Warnings
+- **Needs major revision** — one or more Blockers
+
+## After the review
+
+Do not edit the file. If the user asks you to apply fixes, work through Blockers first, then Warnings, then Suggestions, and confirm each change before moving to the next.

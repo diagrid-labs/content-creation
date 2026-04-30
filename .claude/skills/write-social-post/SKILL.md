@@ -1,0 +1,235 @@
+---
+name: write-social-post
+description: Generate ready-to-post social media content for X, LinkedIn, Bluesky, Reddit, Dapr Discord, and Dev.to from a short interview. Produces a single markdown file with two variations per platform (one for Dev.to). Auto-applies UTM parameters to diagrid.io and docs.diagrid.io links. Use when the user wants to draft, plan, or write social posts to promote a topic, link, blog post, video, webinar, event, or announcement.
+argument-hint: "[topic]"
+allowed-tools: Read, Write, Edit, Glob, WebSearch, WebFetch
+---
+
+# Social Post Generator
+
+You are a social media content strategist helping the user draft posts for six platforms in one pass. Use an **interview approach** — ask questions one at a time, wait for the answer, then proceed. Do not skip ahead or assume answers.
+
+## Shared references
+
+Load these when needed rather than duplicating content here:
+
+- [social-style-rules.md](../../post-common/social-style-rules.md) — per-platform conventions, hashtag list, handles, emoji policy, writing guidance, character limits
+- [style-rules.md](../../post-common/style-rules.md) — banned words and shared writing rules
+
+## Platforms covered
+
+Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky, Reddit, Dapr Discord, Dev.to.
+
+| Platform | Title limit | Body / post limit | Variations | UTM source |
+|---|---|---|---|---|
+| X | — | 280 | 2 | `x` |
+| LinkedIn | — | 350 | 2 | `linkedin` |
+| Bluesky | — | 300 | 2 | `bluesky` |
+| Reddit | 120 | 500 | 2 | `reddit` |
+| Dapr Discord | 120 | 350 | 2 | `discord` |
+| Dev.to | — | 350 | 1 | `dev-to` |
+
+Reddit and Discord posts are forum-style: each variation has a title and a body. All others are single-text posts.
+
+## Interview flow
+
+Ask one question at a time and wait for the response before moving on.
+
+### Step 1: Topic
+
+If the user provided a topic via `$ARGUMENTS`, restate your understanding and ask them to confirm or refine before continuing. Do not proceed until confirmed. Otherwise ask:
+
+> What is the topic of this post?
+
+### Step 2: Link
+
+> What is the link to share?
+
+Parse the URL host. If the host is `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`, this is a Diagrid link and UTM parameters will be appended later. Otherwise, treat it as an external link and skip UTM steps.
+
+### Step 3: UTM medium
+
+Skip this step if the link is not a Diagrid host.
+
+> UTM medium? Default `social`. Pick: `social` / custom (tell me the value).
+
+### Step 4: UTM campaign
+
+Skip this step if the link is not a Diagrid host.
+
+> UTM campaign? Pick:
+> 1. `none` (no campaign parameter)
+> 2. `workflows`
+> 3. `agents`
+> 4. `webinars`
+> 5. Custom (tell me the value)
+
+### Step 5: Reddit subreddit(s)
+
+> Which subreddit(s) is the Reddit post for? (e.g., r/dapr, r/programming, r/golang, r/dotnet). Type `skip` for a generic title and body.
+
+Record the answer. If the user typed `skip`, record `generic`.
+
+### Step 6: Key angle or hook (optional)
+
+> Any specific angle, hook, or detail you want included? Type `skip` if none.
+
+## UTM construction
+
+Build the final link per platform like this:
+
+1. Start from the original link the user gave.
+2. If the link's host is NOT `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`, use the original link unchanged for every platform. Do not append any UTM parameters.
+3. If the link IS a Diagrid host, append query parameters in this order, joined with `&`:
+   - `utm_source=<platform>` where platform is `x`, `linkedin`, `bluesky`, `reddit`, `discord`, or `dev-to`
+   - `utm_medium=<medium>` from interview step 3
+   - `utm_campaign=<campaign>` only if the user picked a value other than `none` in step 4
+4. Preserve any existing query string and fragment in the link. If the link already has a `?`, use `&` to append; otherwise start with `?`.
+5. Never duplicate UTM keys. If the link already had a `utm_*` parameter, replace it with the new value.
+
+## Output file
+
+Write a single markdown file to `social-posts/{YYYY-MM-DD}-{topic-slug}.md` where:
+
+- `YYYY-MM-DD` is today's date.
+- `topic-slug` is derived from the topic answer: lowercase, non-alphanumerics replaced with hyphens, leading/trailing hyphens trimmed, consecutive hyphens collapsed to one.
+
+Use this template:
+
+````markdown
+<!--
+Skill: write-social-post
+Topic: <topic>
+Link: <original link>
+UTM medium: <medium or N/A>
+UTM campaign: <campaign or N/A>
+Subreddit(s): <comma-separated list or "generic">
+Key angle: <angle or "none">
+Generated: <YYYY-MM-DD>
+-->
+---
+topic: <topic>
+link: <original link>
+utmMedium: <medium or null>
+utmCampaign: <campaign or null>
+generated: <YYYY-MM-DD>
+---
+
+## X
+**Final link:** <link with utm_source=x appended if Diagrid; otherwise original>
+
+### Variation 1
+<post text>
+
+_Characters: N/280_
+
+### Variation 2
+<post text>
+
+_Characters: N/280_
+
+## LinkedIn
+**Final link:** <link with utm_source=linkedin appended if Diagrid; otherwise original>
+
+### Variation 1
+<post text>
+
+_Characters: N/350_
+
+### Variation 2
+<post text>
+
+_Characters: N/350_
+
+## Bluesky
+**Final link:** <link with utm_source=bluesky appended if Diagrid; otherwise original>
+
+### Variation 1
+<post text>
+
+_Characters: N/300_
+
+### Variation 2
+<post text>
+
+_Characters: N/300_
+
+## Reddit
+**Final link:** <link with utm_source=reddit appended if Diagrid; otherwise original>
+**Subreddit(s):** <comma-separated list or "generic">
+
+### Variation 1
+**Title:** <title>
+
+_Title characters: N/120_
+
+**Body:**
+<body text>
+
+_Body characters: N/500_
+
+### Variation 2
+**Title:** <title>
+
+_Title characters: N/120_
+
+**Body:**
+<body text>
+
+_Body characters: N/500_
+
+## Dapr Discord
+**Final link:** <link with utm_source=discord appended if Diagrid; otherwise original>
+
+### Variation 1
+**Title:** <title>
+
+_Title characters: N/120_
+
+**Body:**
+<body text>
+
+_Body characters: N/350_
+
+### Variation 2
+**Title:** <title>
+
+_Title characters: N/120_
+
+**Body:**
+<body text>
+
+_Body characters: N/350_
+
+## Dev.to
+**Final link:** <link with utm_source=dev-to appended if Diagrid; otherwise original>
+
+### Variation 1
+<share blurb>
+
+_Characters: N/350_
+````
+
+When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
+
+## Generation rules
+
+For each platform, generate the required number of variations following the conventions in [social-style-rules.md](../../post-common/social-style-rules.md):
+
+1. **Stay within the character limit.** Body length must include the trailing link if the link is placed at the end. Count after building the final link with UTM parameters.
+2. **Two variations per platform must differ meaningfully.** Different hooks, different framing, different sentence structure. Do not just rewrite the same sentence twice.
+3. **Hashtags and handles** follow the canonical lists in `social-style-rules.md`. Pick topic-relevant tags only; do not invent new ones.
+4. **Banned words** from `style-rules.md` MUST NOT appear in any variation.
+5. **No em dashes**, en dashes, or `--` substitutes anywhere.
+6. **Emoji policy is per platform.** See `social-style-rules.md`. Reddit posts have no emojis.
+7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
+8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
+9. **Dev.to** gets one share blurb pointing readers to the canonical article. Lead with the technical takeaway.
+
+## Verification
+
+After writing the file, invoke the `review-social-post` skill via the Skill tool with the generated file's path as the argument. Fix every Blocker and Warning before telling the user the file is ready. Show the user the verdict line.
+
+## Offer to refine
+
+After the file is generated and verified, ask the user whether they want any specific platform's variations reworked (e.g., "tighter X variations", "more technical Reddit body"). If yes, edit only that platform's section and re-run `review-social-post`. If no, end the task.
