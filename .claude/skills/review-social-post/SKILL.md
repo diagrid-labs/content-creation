@@ -27,7 +27,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
    - The prompt-metadata HTML comment block (topic, link, UTM medium, UTM campaign, subreddits, generated date).
    - The YAML front-matter (`topic`, `link`, `utmMedium`, `utmCampaign`, `generated`).
    - The list of `## <Platform>` headings present.
-   - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit and Discord) the `**Title:**` and `**Body:**` lines.
+   - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit, Dapr Discord, and Dev.to) the `**Title:**` and `**Body:**` lines.
 3. Load the shared references.
 4. Run every check in the [Review checklist](#review-checklist).
 5. Produce a report in the [Report format](#report-format).
@@ -51,6 +51,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
 - [ ] Dev.to has exactly one `### Variation 1` block
 - [ ] Each Reddit variation contains both `**Title:**` and `**Body:**`
 - [ ] Each Dapr Discord variation contains both `**Title:**` and `**Body:**`
+- [ ] The Dev.to variation contains both `**Title:**` and `**Body:**`
 
 ### Length (Blocker if exceeded)
 
@@ -61,7 +62,7 @@ Count characters of the post text only (exclude the heading, the `### Variation 
 - [ ] Bluesky variation ≤ 300 characters
 - [ ] Reddit title ≤ 120 characters; Reddit body ≤ 500 characters
 - [ ] Dapr Discord title ≤ 120 characters; Dapr Discord body ≤ 350 characters
-- [ ] Dev.to variation ≤ 350 characters
+- [ ] Dev.to title ≤ 120 characters; Dev.to body ≤ 500 characters
 - [ ] The displayed `_Characters: N/M_` value matches the actual count (Warning if off, Blocker if the actual count exceeds the limit)
 
 ### UTM
@@ -96,7 +97,7 @@ Group findings by severity. Be specific: include the platform, variation number,
 - Length over the platform limit
 - Banned words
 - Em dashes / en dashes / `--`
-- Missing required structure (missing platform section, wrong number of variations, missing Title/Body for Reddit or Discord)
+- Missing required structure (missing platform section, wrong number of variations, missing Title/Body for Reddit, Discord, or Dev.to)
 - Missing or wrong UTM parameters on Diagrid links; UTM parameters present on non-Diagrid links
 - Reddit emojis or hashtags
 - Title rule violations on Reddit / Discord titles

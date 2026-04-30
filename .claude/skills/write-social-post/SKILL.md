@@ -27,9 +27,9 @@ Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky,
 | Bluesky | — | 300 | 2 | `bluesky` |
 | Reddit | 120 | 500 | 2 | `reddit` |
 | Dapr Discord | 120 | 350 | 2 | `discord` |
-| Dev.to | — | 350 | 1 | `dev-to` |
+| Dev.to | 120 | 500 | 1 | `dev-to` |
 
-Reddit and Discord posts are forum-style: each variation has a title and a body. All others are single-text posts.
+Reddit, Discord, and Dev.to posts are forum-style: each variation has a title and a body. All others are single-text posts.
 
 ## Interview flow
 
@@ -205,9 +205,14 @@ _Body characters: N/350_
 **Final link:** <link with utm_source=dev-to appended if Diagrid; otherwise original>
 
 ### Variation 1
+**Title:** <title>
+
+_Title characters: N/120_
+
+**Body:**
 <share blurb>
 
-_Characters: N/350_
+_Body characters: N/500_
 ````
 
 When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
@@ -224,7 +229,7 @@ For each platform, generate the required number of variations following the conv
 6. **Emoji policy is per platform.** See `social-style-rules.md`. Reddit posts have no emojis.
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
-9. **Dev.to** gets one share blurb pointing readers to the canonical article. Lead with the technical takeaway.
+9. **Dev.to** gets one variation with a title (max 120 chars) and a body share blurb (max 500 chars) pointing readers to the canonical article. Lead the body with the technical takeaway.
 10. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
     - Report, ebook, guide, whitepaper: `Download the report now: <link>`, `Get the full report: <link>`
     - Blog post, article, tutorial: `Read the post to learn more: <link>`, `Read the full breakdown: <link>`
