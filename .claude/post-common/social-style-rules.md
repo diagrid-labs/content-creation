@@ -61,23 +61,25 @@ The blog-post rule "do not use emojis" does NOT apply to social posts. Per-platf
 ## Per-platform writing guidance
 
 ### X
+- Casual, enthusiastic, and technical at the same time
 - Lead with the hook, not the link.
-- Favor a list (bullets or numbered) when the topic has 3+ discrete points, takeaways, features, or steps. Default to a list whenever the content supports it; fall back to a single-sentence opener only when the topic is genuinely one idea.
+- Favor a list (bullets or numbered) when the topic has 3 or more discrete points, takeaways, features, or steps. Default to a list whenever the content supports it; fall back to a single-sentence opener only when the topic is genuinely one idea.
 - Place the link at the end so the hook is read first.
 - Use 2-3 lowercase hashtags from the canonical list.
 - One handle mention is fine; two is too many.
 - Limit is 500 characters. Use the headroom for clarity, not filler.
 
 ### LinkedIn
+- Professional, enthusiastic, and technical at the same time
 - The first line is the hook. Readers see only the first line before "see more".
-- Favor a list (bullets or numbered) when the topic has 3+ discrete points, takeaways, features, or steps. Use short paragraphs only when the content is a single argument rather than a list of items.
+- Favor a list (bullets or numbered) when the topic has 3 or more discrete points, takeaways, features, or steps. Use short paragraphs only when the content is a single argument rather than a list of items.
 - Use blank lines between paragraphs or list items so the post breathes on the feed.
 - Place the link at the end of the post.
 - 3-5 mixed-case hashtags at the end (e.g., `#Dapr`, `#Kubernetes`).
 - Sound like a person, not a press release.
 
 ### Bluesky
-- Casual and technical at the same time.
+- Casual, enthusiastic, and technical at the same time.
 - Hook-first, link last.
 - Hashtags are plain text on Bluesky; 1-2 lowercase tags at most.
 - Mentions use full domain handle (`@diagrid.io`).
@@ -90,9 +92,10 @@ The blog-post rule "do not use emojis" does NOT apply to social posts. Per-platf
 - Tone matches the subreddit if one is supplied (e.g., r/golang expects Go-focused phrasing).
 
 ### Dapr Discord
-- Community tone, conversational, not promotional.
+- Community tone, enthusiastic, conversational, not promotional.
 - Title states what the message is about (forum-style listing).
 - Body is short and to the point; the link goes inside the body.
+- Favor a list (bullets or numbered) when the topic has 3 or more discrete points, 
 - At most one emoji.
 - No hashtags, no handle mentions.
 
@@ -100,6 +103,7 @@ The blog-post rule "do not use emojis" does NOT apply to social posts. Per-platf
 - Forum-style: a title (max 120 chars) and a body share blurb (max 500 chars) pointing readers to the canonical article.
 - Title states the technical detail, not a marketing benefit.
 - Body leads with the technical takeaway, not the brand.
+- Favor a list (bullets or numbered) when the topic has 3 or more discrete points.
 - Link at the end of the body.
 - No inline hashtags (Dev.to uses front-matter tags, which are out of scope for this skill).
 - One handle mention only when natural.
