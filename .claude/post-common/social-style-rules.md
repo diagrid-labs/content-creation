@@ -109,3 +109,65 @@ The blog-post rule "do not use emojis" does NOT apply to social posts. Per-platf
 - Link at the end of the body.
 - No inline hashtags (Dev.to uses front-matter tags, which are out of scope for this skill).
 - One handle mention only when natural.
+
+## Reference examples
+
+The following examples show the tone and structure to aim for: a concrete pain point or news hook in the first sentence, a short bulleted list of the discrete points, then an actionable CTA before the link. Use them as templates when generating X, LinkedIn, Bluesky, and Discord variations. Adapt the length, hashtag rules, and emoji policy to the target platform.
+
+### Example 1 — Product release (problem-solution + feature list)
+
+```
+Tired of adding log statements to your code to debug your Dapr workflows? Try the Diagrid Dev Dashboard to inspect local Dapr workflow state!
+
+A new version of the dashboard has just been released which also contains two other developer features:
+
+- Resiliency builder: Create Dapr resiliency policies via the UI
+- Component builder: Create Dapr component files via the UI
+
+Go update the docker image if you already have the dashboard installed. If you're new to the dashboard, have a look at the docs here: <LINK>
+```
+
+Why it works:
+- Opens with a recognizable developer pain point ("adding log statements to debug").
+- Names the solution in the same paragraph.
+- Uses a short bulleted list to enumerate the additional features rather than packing them into prose.
+- CTA differentiates between existing users ("update the docker image") and new users ("have a look at the docs").
+
+### Example 2 — Upcoming event (announcement + agenda list)
+
+```
+Join the next Dapr Community Call live stream on <DATE>!
+
+Topics include:
+- Workflow history propagation
+- .NET SDK update
+- Upcoming events
+- Community show and tell
+
+Watch it here: <LINK>
+Continue the discussion on the Dapr Discord: <DISCORD-LINK>
+```
+
+Why it works:
+- Lead sentence states the event and date directly.
+- Agenda is a clean bulleted list, not a run-on sentence.
+- Two CTAs serve different intents (watch vs. discuss) without sounding promotional.
+
+### Example 3 — Recording recap (recap + topics list)
+
+```
+Did you miss the Dapr Community Call last week? You can watch it now on YouTube!
+
+Topics include:
+- Dapr workflow authoring skills for Claude
+- Workflow history signing
+- Events & community content
+
+Watch the recording here: <LINK>
+```
+
+Why it works:
+- Opens with a question that names the missed-event pain point.
+- States the solution (recording is up) immediately.
+- Bulleted list previews the substance so the reader can decide whether to click.
+- Single, action-matched CTA ("Watch the recording").
