@@ -23,11 +23,11 @@ Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky,
 | Platform | Title limit | Body / post limit | Variations | UTM source |
 |---|---|---|---|---|
 | X | — | 500 | 2 | `x` |
-| LinkedIn | — | 350 | 2 | `linkedin` |
+| LinkedIn | — | 500 | 2 | `linkedin` |
 | Bluesky | — | 300 | 2 | `bluesky` |
-| Reddit | 120 | 500 | 2 | `reddit` |
-| Dapr Discord | 120 | 350 | 2 | `discord` |
-| Dev.to | 120 | 500 | 1 | `dev-to` |
+| Reddit | 120 | 700 | 2 | `reddit` |
+| Dapr Discord | 120 | 500 | 2 | `discord` |
+| Dev.to | 120 | 700 | 1 | `dev-to` |
 
 Reddit, Discord, and Dev.to posts are forum-style: each variation has a title and a body. All others are single-text posts.
 
@@ -134,12 +134,12 @@ _Characters: N/500_
 ### Variation 1
 <post text>
 
-_Characters: N/350_
+_Characters: N/500_
 
 ### Variation 2
 <post text>
 
-_Characters: N/350_
+_Characters: N/500_
 
 ## Bluesky
 **Final link:** <link with utm_source=bluesky appended if Diagrid; otherwise original>
@@ -166,7 +166,7 @@ _Title characters: N/120_
 **Body:**
 <body text>
 
-_Body characters: N/500_
+_Body characters: N/700_
 
 ### Variation 2
 **Title:** <title>
@@ -176,7 +176,7 @@ _Title characters: N/120_
 **Body:**
 <body text>
 
-_Body characters: N/500_
+_Body characters: N/700_
 
 ## Dapr Discord
 **Final link:** <link with utm_source=discord appended if Diagrid; otherwise original>
@@ -189,7 +189,7 @@ _Title characters: N/120_
 **Body:**
 <body text>
 
-_Body characters: N/350_
+_Body characters: N/500_
 
 ### Variation 2
 **Title:** <title>
@@ -199,7 +199,7 @@ _Title characters: N/120_
 **Body:**
 <body text>
 
-_Body characters: N/350_
+_Body characters: N/500_
 
 ## Dev.to
 **Final link:** <link with utm_source=dev-to appended if Diagrid; otherwise original>
@@ -212,7 +212,7 @@ _Title characters: N/120_
 **Body:**
 <share blurb>
 
-_Body characters: N/500_
+_Body characters: N/700_
 ````
 
 When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
@@ -231,15 +231,14 @@ For each platform, generate the required number of variations following the conv
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
 9. **Dev.to** gets one variation with a title (max 120 chars) and a body share blurb (max 500 chars) pointing readers to the canonical article. Lead the body with the technical takeaway.
 10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit, Discord, and Dev.to bodies stay prose unless the source material is genuinely list-shaped.
-11. **Default tone is enthusiastic and positive on X, LinkedIn, Bluesky, and Discord.** Lead with energy, not throat-clearing. Pick active, upbeat verbs (shipping, launching, building, unlocking, joining) over passive phrasing. Frame the value to the reader, not the marketing checklist. Avoid hedging openers like "Just a quick note", "We wanted to share", "Have you ever wondered". Reddit and Dev.to stay neutral and technical regardless — Reddit downvotes promotional tone and Dev.to readers expect a share blurb that leads with the technical takeaway.
-12. **Dial enthusiasm UP for upcoming events and new product features.** When the topic is an upcoming event (webinar, community call, meetup, workshop, conference) or the announcement of a new product feature, release, or capability, push the tone further on X, LinkedIn, Bluesky, and Discord:
-    - Open with a high-energy hook. Examples: "Mark your calendar.", "Just shipped:", "New in <product>:", "Ready to learn more about <X>?", "Don't miss this one."
-    - Emphasize the unlock or the experience. For events, say what attendees will see, learn, or take away. For features, say what is now possible that wasn't before.
-    - Use one celebratory emoji where the per-platform emoji policy allows it (X, LinkedIn, Bluesky, Discord), staying within the per-platform max. Don't add emoji on Reddit or in any list item.
-    - Recordings or replays of past events are NOT upcoming events — keep them at the default tone with a "Watch the recording" lead-in.
-    - Reddit and Dev.to stay neutral even for events and feature launches. State the technical detail; let the reader judge.
-    - Routine blog posts, reports, docs, and tutorials use the default tone from rule 11, not the dialed-up version. Over-amping every post turns enthusiasm into noise.
-13. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
+11. **Lead with a problem-solution opener on X, LinkedIn, Bluesky, and Discord.** Open with a concrete developer pain point in one short sentence, then state how the topic, product, or event addresses it. The problem must be one a developer in the target audience would recognize on sight — concrete failure modes, not abstract benefits. Examples:
+    - "Distributed transactions break in surprising ways. Dapr workflows make them deterministic and resumable."
+    - "Agents lose state the moment a process restarts. Catalyst keeps it durable across runs."
+    - "Building reliable agents shouldn't require rebuilding state every run. See how Aspire, MAF, and Catalyst handle it in Thursday's webinar."
+    - "Debugging a workflow that silently retried twelve times is no fun. This post walks through how to surface that in observability."
+
+    This applies across content types — blog posts, tutorials, docs, reports, upcoming events, product launches, and recordings all lead with the problem first, then the solution. Avoid hedging openers ("Just a quick note", "We wanted to share", "Have you ever wondered"), generic benefit claims unpaired from a problem, and marketing exclamations ("Mark your calendar.", "Don't miss this one."). The two variations on the same platform should pick different problems or different angles on the same problem so they do not feel identical. Reddit and Dev.to already lead with the technical detail and stay neutral; no change there.
+12. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
     - Report, ebook, guide, whitepaper: `Download the report now: <link>`, `Get the full report: <link>`
     - Blog post, article, tutorial: `Read the post to learn more: <link>`, `Read the full breakdown: <link>`
     - Webinar, workshop (upcoming): `Sign up for the webinar now: <link>`, `Save your seat: <link>`

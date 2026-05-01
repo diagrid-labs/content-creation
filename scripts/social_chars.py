@@ -13,11 +13,11 @@ import sys
 
 LIMITS: dict[str, dict[str, int]] = {
     "X":            {"body":  500},
-    "LinkedIn":     {"body":  350},
+    "LinkedIn":     {"body":  500},
     "Bluesky":      {"body":  300},
-    "Reddit":       {"title": 120, "body": 500},
-    "Dapr Discord": {"title": 120, "body": 350},
-    "Dev.to":       {"title": 120, "body": 500},
+    "Reddit":       {"title": 120, "body": 700},
+    "Dapr Discord": {"title": 120, "body": 500},
+    "Dev.to":       {"title": 120, "body": 700},
 }
 
 EXPECTED_VARIATIONS: dict[str, int] = {

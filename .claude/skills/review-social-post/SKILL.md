@@ -104,7 +104,7 @@ Group findings by severity. Be specific: include the platform, variation number,
 
 ### Suggestions (nice to have)
 
-- Stronger hook for the first line
+- First line on X / LinkedIn / Bluesky / Discord does not lead with a problem-solution opener (concrete developer pain point, then how the topic addresses it). Flag if the opener is a marketing exclamation, a hedging phrase, or a generic benefit claim with no paired problem.
 - Tighter phrasing where the variation is close to the limit
 - Topic-relevant hashtag from the canonical list that was not used
 
