@@ -59,7 +59,7 @@ Read [document-types.md](../../post-common/document-types.md) and present the li
 > What are the call to actions (CTAs) you want to include? You can pick multiple:
 > For example:
 > 1. Sign up for a free Catalyst account at https://catalyst.diagrid.io/
-> 2. Join the Dapr Discord at http://bit.ly/dapr-discord
+> 2. Join the Dapr Discord at https://diagrid.ws/dapr-discord
 > 3. Watch a YouTube video on our Diagrid channel: https://www.youtube.com/@diagridio (ask a follow up question to which video should be linked)
 > 4. Something else (ask a follow up question what the CTA should be)
 
