@@ -13,7 +13,7 @@ Interview responses
 - Target audience: backend developers that want to build reliable agentic applications and distributed systems
 - Intent: Understand how Dapr Workflow ensures reliability
 - CTAs:
-  1. Join the Dapr Discord at http://bit.ly/dapr-discord
+  1. Join the Dapr Discord at https://diagrid.ws/dapr-discord
   2. Try the Catalyst Workflow quickstart at https://docs.diagrid.io/getting-started/quickstarts/workflow
 - Key points to cover: Diagrid Catalyst provides a managed Dapr Workflow engine
 - Internal links:
