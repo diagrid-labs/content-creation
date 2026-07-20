@@ -59,6 +59,15 @@ The following rules from [style-rules.md](style-rules.md) apply to every social 
 
 The blog-post rule "do not use emojis" does NOT apply to social posts. Per-platform emoji policy in the table above takes precedence.
 
+## Tone
+
+These apply to every social post, on top of the per-platform tone in the conventions table:
+
+- Frame announcements around what the tool, feature, or event enables for the reader. The problem-solution opener names a developer pain point, then resolves it with the thing being announced. Keep the resolution the focus.
+- Do not disparage prior versions, deprecated tools, or competing products. State what the announced thing does rather than what an older or rival option lacks. For example, prefer "gives you a live view of local Dapr apps and workflows" over "the old dashboard never had workflow inspection".
+- Keep the announcement broadly applicable to the whole target audience. Lead with value that applies to all readers in that audience, then mention narrower or advanced capabilities as supporting points rather than the main hook.
+- Positive framing does not mean promotional. Avoid hype, marketing exclamations, and generic upbeat conclusions (the `humanizer` review pass flags these).
+
 ## Per-platform writing guidance
 
 ### X
