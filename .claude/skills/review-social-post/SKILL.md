@@ -2,7 +2,7 @@
 name: review-social-post
 description: Review a generated social-post markdown file for character limits per platform, UTM parameter correctness on diagrid.io links, banned words, em dashes, hashtag and handle conventions, and structural completeness. Use when the user wants to review, validate, or check a social-post file in the social-posts/ folder before publishing.
 argument-hint: "[file-path]"
-allowed-tools: Read, Glob, Grep, Bash
+allowed-tools: Read, Glob, Grep, Bash, Skill
 ---
 
 # Social Post Reviewer
@@ -15,6 +15,12 @@ Load these when needed:
 
 - [social-style-rules.md](../../post-common/social-style-rules.md) — per-platform conventions, hashtag list, handles, emoji policy, character limits
 - [style-rules.md](../../post-common/style-rules.md) — banned words, em-dash rule, title rules
+
+## Required sub-skill: humanizer
+
+Every review MUST run the `humanizer` skill. Invoke it via the Skill tool and use it in **detection mode only**: apply its pattern catalog to identify signs of AI-generated writing (promotional language, rule-of-three, AI vocabulary, filler and hedging, manufactured punchlines, and so on) across the post text of each variation. During the review, run only the humanizer's identification pass — do NOT apply its rewrite. Fold the patterns it detects into this review's report (see [AI-writing patterns](#ai-writing-patterns-humanizer)).
+
+The humanizer rewrite happens only later, and only if the user asks to apply fixes (see [After the review](#after-the-review)).
 
 ## Inputs
 
@@ -30,7 +36,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
    - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit, Dapr Discord, and Dev.to) the `**Title:**` and `**Body:**` lines.
 3. Load the shared references.
 4. Run the deterministic length validator: `python scripts/social_chars.py validate <path> --json`. Parse the JSON. Each entry where `over: true` is a length **Blocker**. Each non-empty `structural_errors` entry is a structural **Blocker**. Do not compute character counts inline; the script is the source of truth.
-5. Run every remaining check in the [Review checklist](#review-checklist) (UTM, banned words, em dashes, hashtag count, handle presence, title rules). Length and structural completeness are already covered by step 4.
+5. Run every remaining check in the [Review checklist](#review-checklist) (UTM, banned words, em dashes, hashtag count, handle presence, title rules, and the humanizer detection pass in [AI-writing patterns](#ai-writing-patterns-humanizer)). Length and structural completeness are already covered by step 4.
 6. Produce a report in the [Report format](#report-format).
 
 ## Review checklist
@@ -80,6 +86,14 @@ Use `Grep` on the file to scan efficiently.
 - [ ] Reddit variations contain no emojis and no hashtags (Blocker if either is present)
 - [ ] Reddit and Discord titles obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure) (Blocker)
 
+### AI-writing patterns (humanizer)
+
+Invoke the `humanizer` skill via the Skill tool and run its identification pass over the post text of each platform variation. Report the patterns it detects. These are broader, judgement-based signals that complement the hard style rules above — do not rewrite the posts here.
+
+- [ ] Ran the `humanizer` skill in detection mode against each platform variation
+- [ ] Listed each AI-writing pattern it flagged with the platform, variation number, and a quoted snippet, plus the pattern name (e.g. promotional language, rule-of-three, AI vocabulary, filler, excessive hedging, manufactured punchlines, generic positive conclusion) (Warning)
+- [ ] Did not double-report em dashes or banned words already caught by the Style checks above; keep those under Style and list only the additional humanizer patterns here
+
 ## Report format
 
 Group findings by severity. Be specific: include the platform, variation number, and a quoted snippet or line reference for each finding, plus a suggested fix.
@@ -101,6 +115,7 @@ Group findings by severity. Be specific: include the platform, variation number,
 - Hashtag not on the canonical list
 - Diagrid handle present on X / LinkedIn / Bluesky
 - Two variations on the same platform are too similar (same hook, same opening, same framing)
+- AI-writing patterns flagged by the `humanizer` detection pass (promotional language, rule-of-three, AI vocabulary, filler, excessive hedging, manufactured punchlines, generic positive conclusions, etc.)
 
 ### Suggestions (nice to have)
 
@@ -116,4 +131,4 @@ End the report with a verdict on one line:
 
 ## After the review
 
-Do not edit the file. If the user asks you to apply fixes, work through Blockers first, then Warnings, then Suggestions, and confirm each change before moving to the next.
+Do not edit the file. If the user asks you to apply fixes, work through Blockers first, then Warnings, then Suggestions, and confirm each change before moving to the next. For the AI-writing patterns flagged by the `humanizer` detection pass, apply the fixes by running the `humanizer` skill's full rewrite (draft → final) on the affected variations, then confirm the result with the user.

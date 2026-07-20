@@ -2,7 +2,7 @@
 name: review-post
 description: Review a drafted post file for front-matter correctness, document-type structure adherence, style-rule compliance, length, and completeness. Use when the user wants to review, critique, proofread, or check a post of any content type (blog, case-study, event, podcast, press, video, webinar) before publishing.
 argument-hint: "[file-path]"
-allowed-tools: Read, Glob, Grep
+allowed-tools: Read, Glob, Grep, Skill
 ---
 
 # Post Reviewer
@@ -20,6 +20,12 @@ All definitions and rules this review enforces live in `../../post-common/`. Loa
 - [front-matter.md](../../post-common/front-matter.md) — prompt metadata and YAML front-matter spec
 - [style-rules.md](../../post-common/style-rules.md) — writing, title, and length rules
 
+## Required sub-skill: humanizer
+
+Every review MUST run the `humanizer` skill. Invoke it via the Skill tool and use it in **detection mode only**: apply its pattern catalog to identify signs of AI-generated writing (inflated significance, superficial -ing analyses, promotional language, rule-of-three, AI vocabulary, filler and hedging, and so on). During the review, run only the humanizer's identification pass — do NOT apply its rewrite. Fold the patterns it detects into this review's report (see [AI-writing patterns](#ai-writing-patterns-humanizer)).
+
+The humanizer rewrite happens only later, and only if the user asks to apply fixes (see [After the review](#after-the-review)).
+
 ## Inputs
 
 Accept the post path via `$ARGUMENTS`. If no path is given, ask the user which file to review or use `Glob` on `blog-posts/**/*.md` to list candidates.
@@ -35,7 +41,7 @@ Accept the post path via `$ARGUMENTS`. If no path is given, ask the user which f
    - CTAs listed in the prompt metadata
    - Internal links listed in the prompt metadata
 3. Load the shared references needed for the review. At minimum, load [style-rules.md](../../post-common/style-rules.md), [front-matter.md](../../post-common/front-matter.md), and the section in [document-structures.md](../../post-common/document-structures.md) matching the post's document type.
-4. Run every check in the [Review Checklist](#review-checklist).
+4. Run every check in the [Review Checklist](#review-checklist), including the humanizer detection pass in [AI-writing patterns](#ai-writing-patterns-humanizer).
 5. Produce a report in the [Report Format](#report-format).
 
 ## Review checklist
@@ -74,7 +80,13 @@ Apply every rule in [style-rules.md](../../post-common/style-rules.md). Use `Gre
 - [ ] No title uses the "From ... To ..." structure
 - [ ] Second-person voice spot-check: read the intro and summary and confirm the narrative addresses the reader as "you". First-person plural ("we", "our") is acceptable in Tutorials and marketing voice. This is a judgement call, not a grep.
 
-### Length
+### AI-writing patterns (humanizer)
+
+Invoke the `humanizer` skill via the Skill tool and run its identification pass over the post body (intro through summary). Report the patterns it detects. These are broader, judgement-based signals that complement the hard style rules above — do not rewrite the post here.
+
+- [ ] Ran the `humanizer` skill in detection mode against the post body
+- [ ] Listed each AI-writing pattern it flagged with a line number or quoted snippet and the pattern name (e.g. inflated significance, rule-of-three, superficial -ing analysis, promotional language, filler, excessive hedging, generic positive conclusion)
+- [ ] Did not double-report em dashes or banned words already caught by the Style checks above; keep those under Style and list only the additional humanizer patterns here
 
 - [ ] Count words from the opening intro paragraph through the closing summary paragraph (exclude front-matter, HTML comments, titles, and guidance placeholders)
 - [ ] Word count is within ±15% of the target on the `Post length` line of the prompt metadata. Verify the target against [post-length.md](../../post-common/post-length.md) for the post's document type.
@@ -101,6 +113,7 @@ Things that weaken the post but don't break rules:
 - Weak, generic, or duplicate titles
 - Sections that are thin, repetitive, or off-topic for the document type
 - Inconsistencies between prompt metadata and front-matter (mismatched content type, missing tags, etc.)
+- AI-writing patterns flagged by the `humanizer` detection pass (inflated significance, rule-of-three, superficial -ing analyses, promotional language, filler, excessive hedging, generic positive conclusions, etc.)
 
 ### Suggestions (nice to have)
 
@@ -116,4 +129,4 @@ End the report with a clear verdict on one line:
 
 ## After the review
 
-Do not edit the post. If the user asks you to apply fixes after reading the report, work through Blockers first, then Warnings, then Suggestions, and confirm each change with the user before moving on.
+Do not edit the post. If the user asks you to apply fixes after reading the report, work through Blockers first, then Warnings, then Suggestions, and confirm each change with the user before moving on. For the AI-writing patterns flagged by the `humanizer` detection pass, apply the fixes by running the `humanizer` skill's full rewrite (draft → final) on the affected passages, then confirm the result with the user.
