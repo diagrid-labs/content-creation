@@ -114,3 +114,16 @@ _Title characters: 21/120_
 Dev.to share blurb. Read the full article: https://www.diagrid.io/test?utm_source=dev-to&utm_medium=social
 
 _Body characters: 110/500_
+
+## Medium
+**Final link:** https://www.diagrid.io/test?utm_source=medium&utm_medium=social
+
+### Variation 1
+**Title:** Medium fixture title
+
+_Title characters: 21/120_
+
+**Body:**
+Medium share blurb. Read the full article: https://www.diagrid.io/test?utm_source=medium&utm_medium=social
+
+_Body characters: 110/1200_

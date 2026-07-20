@@ -33,7 +33,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
    - The prompt-metadata HTML comment block (topic, link, UTM medium, UTM campaign, subreddits, generated date).
    - The YAML front-matter (`topic`, `link`, `utmMedium`, `utmCampaign`, `generated`).
    - The list of `## <Platform>` headings present.
-   - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit, Dapr Discord, and Dev.to) the `**Title:**` and `**Body:**` lines.
+   - For each platform: the `**Final link:**` value, all `### Variation N` blocks, and (for Reddit, Dapr Discord, Dev.to, and Medium) the `**Title:**` and `**Body:**` lines.
 3. Load the shared references.
 4. Run the deterministic length validator: `python scripts/social_chars.py validate <path> --json`. Parse the JSON. Each entry where `over: true` is a length **Blocker**. Each non-empty `structural_errors` entry is a structural **Blocker**. Do not compute character counts inline; the script is the source of truth.
 5. Run every remaining check in the [Review checklist](#review-checklist) (UTM, banned words, em dashes, hashtag count, handle presence, title rules, and the humanizer detection pass in [AI-writing patterns](#ai-writing-patterns-humanizer)). Length and structural completeness are already covered by step 4.
@@ -51,7 +51,7 @@ Accept the file path via `$ARGUMENTS`. If no path is given, ask the user which f
 
 ### Structure
 
-The script's `structural_errors` cover: missing platform sections, wrong number of variations per platform, and missing `**Title:**` / `**Body:**` for Reddit, Dapr Discord, and Dev.to. The remaining structural checks below stay in the skill:
+The script's `structural_errors` cover: missing platform sections, wrong number of variations per platform, and missing `**Title:**` / `**Body:**` for Reddit, Dapr Discord, Dev.to, and Medium. The remaining structural checks below stay in the skill:
 
 - [ ] Prompt-metadata HTML comment block is present at the top of the file
 - [ ] YAML front-matter block appears immediately after, with `topic`, `link`, `utmMedium`, `utmCampaign`, `generated` fields
@@ -68,7 +68,7 @@ All length checks come from `scripts/social_chars.py validate --json`. See workf
 For every `**Final link:**` value:
 
 - [ ] If the host is `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`:
-  - Contains `utm_source=<platform>` where platform matches the section it appears in (`x`, `linkedin`, `bluesky`, `reddit`, `discord`, or `dev-to`)
+  - Contains `utm_source=<platform>` where platform matches the section it appears in (`x`, `linkedin`, `bluesky`, `reddit`, `discord`, `dev-to`, or `medium`)
   - Contains `utm_medium=<value>` where value matches the `utmMedium` field in the front-matter
   - If the prompt metadata's UTM campaign is not `N/A` and not `none`, contains `utm_campaign=<value>` matching that field
   - Does not contain duplicate `utm_*` keys
@@ -81,7 +81,7 @@ Use `Grep` on the file to scan efficiently.
 - [ ] No banned words (case-insensitive): journey, dive, delve into, jump into, pivotal, underscore, harness, realm, illuminate, master (Blocker)
 - [ ] No em dashes, en dashes, or `--` substitutes (regex `[—–]|--`) (Blocker)
 - [ ] X, LinkedIn, and Bluesky variations do NOT include a Diagrid handle (`@diagridio`, `@Diagrid`, `@diagrid.io`, `@diagrid`) (Warning if present)
-- [ ] Hashtag count per platform variation matches `social-style-rules.md`: X 2-3, LinkedIn 3-5, Bluesky 1-2, Reddit / Discord / Dev.to 0 (Warning if outside range)
+- [ ] Hashtag count per platform variation matches `social-style-rules.md`: X 2-3, LinkedIn 3-5, Bluesky 1-2, Reddit / Discord / Dev.to / Medium 0 (Warning if outside range)
 - [ ] All hashtags used are from the canonical Diagrid hashtag list in `social-style-rules.md` (Warning if a tag is not on the list)
 - [ ] Reddit variations contain no emojis and no hashtags (Blocker if either is present)
 - [ ] Reddit and Discord titles obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure) (Blocker)
@@ -103,7 +103,7 @@ Group findings by severity. Be specific: include the platform, variation number,
 - Length over the platform limit
 - Banned words
 - Em dashes / en dashes / `--`
-- Missing required structure (missing platform section, wrong number of variations, missing Title/Body for Reddit, Discord, or Dev.to)
+- Missing required structure (missing platform section, wrong number of variations, missing Title/Body for Reddit, Discord, Dev.to, or Medium)
 - Missing or wrong UTM parameters on Diagrid links; UTM parameters present on non-Diagrid links
 - Reddit emojis or hashtags
 - Title rule violations on Reddit / Discord titles

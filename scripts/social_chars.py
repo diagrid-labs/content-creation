@@ -18,13 +18,14 @@ LIMITS: dict[str, dict[str, int]] = {
     "Reddit":       {"title": 120, "body": 700},
     "Dapr Discord": {"title": 120, "body": 500},
     "Dev.to":       {"title": 120, "body": 1200},
+    "Medium":       {"title": 120, "body": 1200},
 }
 
 EXPECTED_VARIATIONS: dict[str, int] = {
-    "X": 2, "LinkedIn": 2, "Bluesky": 2, "Reddit": 2, "Dapr Discord": 2, "Dev.to": 1,
+    "X": 2, "LinkedIn": 2, "Bluesky": 2, "Reddit": 2, "Dapr Discord": 2, "Dev.to": 1, "Medium": 1,
 }
 
-PLATFORM_ORDER: list[str] = ["X", "LinkedIn", "Bluesky", "Reddit", "Dapr Discord", "Dev.to"]
+PLATFORM_ORDER: list[str] = ["X", "LinkedIn", "Bluesky", "Reddit", "Dapr Discord", "Dev.to", "Medium"]
 
 
 def normalize_and_count(text: str) -> int:

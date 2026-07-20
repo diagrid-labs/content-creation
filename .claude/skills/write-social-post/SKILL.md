@@ -1,13 +1,13 @@
 ---
 name: write-social-post
-description: Generate ready-to-post social media content for X, LinkedIn, Bluesky, Reddit, Dapr Discord, and Dev.to from a short interview. Produces a single markdown file with two variations per platform (one for Dev.to). Auto-applies UTM parameters to diagrid.io and docs.diagrid.io links. Use when the user wants to draft, plan, or write social posts to promote a topic, link, blog post, video, webinar, event, or announcement.
+description: Generate ready-to-post social media content for X, LinkedIn, Bluesky, Reddit, Dapr Discord, Dev.to, and Medium from a short interview. Produces a single markdown file with two variations per platform (one for Dev.to and Medium). Auto-applies UTM parameters to diagrid.io and docs.diagrid.io links. Use when the user wants to draft, plan, or write social posts to promote a topic, link, blog post, video, webinar, event, or announcement.
 argument-hint: "[topic]"
 allowed-tools: Read, Write, Edit, Glob, WebSearch, WebFetch, Bash
 ---
 
 # Social Post Generator
 
-You are a social media content strategist helping the user draft posts for six platforms in one pass. Use an **interview approach** — ask questions one at a time, wait for the answer, then proceed. Do not skip ahead or assume answers.
+You are a social media content strategist helping the user draft posts for seven platforms in one pass. Use an **interview approach** — ask questions one at a time, wait for the answer, then proceed. Do not skip ahead or assume answers.
 
 ## Shared references
 
@@ -18,7 +18,7 @@ Load these when needed rather than duplicating content here:
 
 ## Platforms covered
 
-Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky, Reddit, Dapr Discord, Dev.to.
+Always generate posts for all seven platforms in this order: X, LinkedIn, Bluesky, Reddit, Dapr Discord, Dev.to, Medium.
 
 | Platform | Title limit | Body / post limit | Variations | UTM source |
 |---|---|---|---|---|
@@ -28,8 +28,9 @@ Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky,
 | Reddit | 120 | 700 | 2 | `reddit` |
 | Dapr Discord | 120 | 500 | 2 | `discord` |
 | Dev.to | 120 | 1200 | 1 | `dev-to` |
+| Medium | 120 | 1200 | 1 | `medium` |
 
-Reddit, Discord, and Dev.to posts are forum-style: each variation has a title and a body. All others are single-text posts.
+Reddit, Discord, Dev.to, and Medium posts are forum-style: each variation has a title and a body. All others are single-text posts. Medium uses the same blog-style content as Dev.to (see generation rule 9); the two sections are identical apart from the `utm_source` on the final link.
 
 ## Interview flow
 
@@ -81,7 +82,7 @@ Build the final link per platform like this:
 1. Start from the original link the user gave.
 2. If the link's host is NOT `diagrid.io`, `www.diagrid.io`, or `docs.diagrid.io`, use the original link unchanged for every platform. Do not append any UTM parameters.
 3. If the link IS a Diagrid host, append query parameters in this order, joined with `&`:
-   - `utm_source=<platform>` where platform is `x`, `linkedin`, `bluesky`, `reddit`, `discord`, or `dev-to`
+   - `utm_source=<platform>` where platform is `x`, `linkedin`, `bluesky`, `reddit`, `discord`, `dev-to`, or `medium`
    - `utm_medium=<medium>` from interview step 3
    - `utm_campaign=<campaign>` only if the user picked a value other than `none` in step 4
 4. Preserve any existing query string and fragment in the link. If the link already has a `?`, use `&` to append; otherwise start with `?`.
@@ -213,6 +214,19 @@ _Title characters: N/120_
 <blog-style post: short intro, then 2-4 `###` sections, closing CTA and link>
 
 _Body characters: N/1200_
+
+## Medium
+**Final link:** <link with utm_source=medium appended if Diagrid; otherwise original>
+
+### Variation 1
+**Title:** <title, same as Dev.to>
+
+_Title characters: N/120_
+
+**Body:**
+<same blog-style content as Dev.to, with the Medium final link at the end>
+
+_Body characters: N/1200_
 ````
 
 When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
@@ -229,15 +243,15 @@ For each platform, generate the required number of variations following the conv
 6. **Emoji policy is per platform.** See `social-style-rules.md`. Reddit posts have no emojis.
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
-9. **Dev.to** gets one variation with a title (max 120 chars) and a body (max 1200 chars) structured like a short blog post, not a share blurb. Open with a short intro that leads with the technical takeaway, then use two to four sections with subheadings (`###` or `####`, never `##`, which is reserved for platform sections in the output file) covering the key points, and close with a CTA and the link. The article should read as a self-contained post while still pointing readers to the canonical article at the end.
-10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit and Discord bodies stay prose unless the source material is genuinely list-shaped. Dev.to is blog-structured (see rule 9): use subheadings, and lists where they fit.
+9. **Dev.to and Medium** each get one variation with a title (max 120 chars) and a body (max 1200 chars) structured like a short blog post, not a share blurb. Open with a short intro that leads with the technical takeaway, then use two to four sections with subheadings (`###` or `####`, never `##`, which is reserved for platform sections in the output file) covering the key points, and close with a CTA and the link. The article should read as a self-contained post while still pointing readers to the canonical article at the end. **Medium reuses the exact Dev.to content** — same title and body text — with only the final link differing (`utm_source=medium` instead of `utm_source=dev-to`).
+10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit and Discord bodies stay prose unless the source material is genuinely list-shaped. Dev.to and Medium are blog-structured (see rule 9): use subheadings, and lists where they fit.
 11. **Lead with a problem-solution opener on X, LinkedIn, Bluesky, and Discord.** Open with a concrete developer pain point in one short sentence, then state how the topic, product, or event addresses it. The problem must be one a developer in the target audience would recognize on sight — concrete failure modes, not abstract benefits. Examples:
     - "Distributed transactions break in surprising ways. Dapr workflows make them deterministic and resumable."
     - "Agents lose state the moment a process restarts. Catalyst keeps it durable across runs."
     - "Building reliable agents shouldn't require rebuilding state every run. See how Aspire, MAF, and Catalyst handle it in Thursday's webinar."
     - "Debugging a workflow that silently retried twelve times is no fun. This post walks through how to surface that in observability."
 
-    This applies across content types — blog posts, tutorials, docs, reports, upcoming events, product launches, and recordings all lead with the problem first, then the solution. Avoid hedging openers ("Just a quick note", "We wanted to share", "Have you ever wondered"), generic benefit claims unpaired from a problem, and marketing exclamations ("Mark your calendar.", "Don't miss this one."). The two variations on the same platform should pick different problems or different angles on the same problem so they do not feel identical. Reddit and Dev.to already lead with the technical detail and stay neutral; no change there.
+    This applies across content types — blog posts, tutorials, docs, reports, upcoming events, product launches, and recordings all lead with the problem first, then the solution. Avoid hedging openers ("Just a quick note", "We wanted to share", "Have you ever wondered"), generic benefit claims unpaired from a problem, and marketing exclamations ("Mark your calendar.", "Don't miss this one."). The two variations on the same platform should pick different problems or different angles on the same problem so they do not feel identical. Reddit, Dev.to, and Medium already lead with the technical detail and stay neutral; no change there.
 12. **Use an actionable lead-in before the link.** Match the verb to what the link actually is. Do not use a flat label like "Link:" or just paste the URL on its own line. Examples by content type:
     - Report, ebook, guide, whitepaper: `Download the report now: <link>`, `Get the full report: <link>`
     - Blog post, article, tutorial: `Read the post to learn more: <link>`, `Read the full breakdown: <link>`
@@ -261,7 +275,7 @@ python scripts/social_chars.py count --text "<full variation text including the 
 
 The script prints `N/LIMIT` on stdout (e.g. `437/500`). Use that exact value for the `_Characters: N/M_` line in the output file. The script normalizes the text the same way the reviewer will (CRLF→LF, strip whitespace, count Unicode code points), so the count you write is the count the reviewer will see.
 
-For platforms with both a title and a body (Reddit, Dapr Discord, Dev.to), call the script twice per variation: once with the title and the title's limit, once with the body and the body's limit.
+For platforms with both a title and a body (Reddit, Dapr Discord, Dev.to, Medium), call the script twice per variation: once with the title and the title's limit, once with the body and the body's limit.
 
 ## Verification
 

@@ -10,7 +10,7 @@ These skills run inside the Claude Code CLI. Install it first: [Claude Code down
 
 - `/write-post` — interview-driven generator that produces a structured post template (Diataxis + marketing document types).
 - `/review-post` — checks a drafted post against front-matter, document-structure, style, and length rules, and returns a findings report.
-- `/write-social-post` — interview-driven generator that produces a single markdown file with two variations per platform (one for Dev.to) covering X, LinkedIn, Bluesky, Reddit, Dapr Discord, and Dev.to. Auto-applies UTM parameters to `diagrid.io` and `docs.diagrid.io` links.
+- `/write-social-post` — interview-driven generator that produces a single markdown file with two variations per platform (one for Dev.to and Medium) covering X, LinkedIn, Bluesky, Reddit, Dapr Discord, Dev.to, and Medium. Auto-applies UTM parameters to `diagrid.io` and `docs.diagrid.io` links.
 - `/review-social-post` — checks a generated social-post file for character limits per platform, UTM correctness, banned words, em dashes, hashtag and handle conventions, and structural completeness.
 
 ## Usage
@@ -34,4 +34,4 @@ Example prompt:
 
 "Create social posts about the new Dapr workflow versioning support in .NET, link https://www.diagrid.io/blog/dapr-workflow-versioning-dotnet"
 
-You will be asked for the topic, the link, the UTM medium and campaign (only when the link points at a Diagrid host), the Reddit subreddit(s), and an optional angle. The result is a single markdown file in `social-posts/` with two variations for X, LinkedIn, Bluesky, Reddit, and Dapr Discord, plus one Dev.to share blurb. Each variation shows its character count against the platform limit. After generation, the file is automatically checked with `/review-social-post`.
+You will be asked for the topic, the link, the UTM medium and campaign (only when the link points at a Diagrid host), the Reddit subreddit(s), and an optional angle. The result is a single markdown file in `social-posts/` with two variations for X, LinkedIn, Bluesky, Reddit, and Dapr Discord, plus one Dev.to and one Medium blog-style post (Medium reuses the Dev.to content). Each variation shows its character count against the platform limit. After generation, the file is automatically checked with `/review-social-post`.

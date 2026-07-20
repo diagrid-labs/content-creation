@@ -77,12 +77,12 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
 class ParseSocialPostTests(unittest.TestCase):
-    def test_parses_all_six_platforms(self):
+    def test_parses_all_platforms(self):
         text = (FIXTURES / "good.md").read_text(encoding="utf-8")
         platforms = parse_social_post(text)
         self.assertEqual(
             [p["name"] for p in platforms],
-            ["X", "LinkedIn", "Bluesky", "Reddit", "Dapr Discord", "Dev.to"],
+            ["X", "LinkedIn", "Bluesky", "Reddit", "Dapr Discord", "Dev.to", "Medium"],
         )
 
     def test_x_has_two_variations_each_with_body_only(self):
@@ -116,6 +116,12 @@ class ParseSocialPostTests(unittest.TestCase):
         platforms = parse_social_post(text)
         devto = next(p for p in platforms if p["name"] == "Dev.to")
         self.assertEqual(len(devto["variations"]), 1)
+
+    def test_medium_has_one_variation(self):
+        text = (FIXTURES / "good.md").read_text(encoding="utf-8")
+        platforms = parse_social_post(text)
+        medium = next(p for p in platforms if p["name"] == "Medium")
+        self.assertEqual(len(medium["variations"]), 1)
 
 
 import json
