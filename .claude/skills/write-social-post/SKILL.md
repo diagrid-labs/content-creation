@@ -27,7 +27,7 @@ Always generate posts for all six platforms in this order: X, LinkedIn, Bluesky,
 | Bluesky | — | 300 | 2 | `bluesky` |
 | Reddit | 120 | 700 | 2 | `reddit` |
 | Dapr Discord | 120 | 500 | 2 | `discord` |
-| Dev.to | 120 | 700 | 1 | `dev-to` |
+| Dev.to | 120 | 1200 | 1 | `dev-to` |
 
 Reddit, Discord, and Dev.to posts are forum-style: each variation has a title and a body. All others are single-text posts.
 
@@ -210,9 +210,9 @@ _Body characters: N/500_
 _Title characters: N/120_
 
 **Body:**
-<share blurb>
+<blog-style post: short intro, then 2-4 `###` sections, closing CTA and link>
 
-_Body characters: N/700_
+_Body characters: N/1200_
 ````
 
 When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
@@ -229,8 +229,8 @@ For each platform, generate the required number of variations following the conv
 6. **Emoji policy is per platform.** See `social-style-rules.md`. Reddit posts have no emojis.
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
-9. **Dev.to** gets one variation with a title (max 120 chars) and a body share blurb (max 500 chars) pointing readers to the canonical article. Lead the body with the technical takeaway.
-10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit, Discord, and Dev.to bodies stay prose unless the source material is genuinely list-shaped.
+9. **Dev.to** gets one variation with a title (max 120 chars) and a body (max 1200 chars) structured like a short blog post, not a share blurb. Open with a short intro that leads with the technical takeaway, then use two to four sections with subheadings (`###` or `####`, never `##`, which is reserved for platform sections in the output file) covering the key points, and close with a CTA and the link. The article should read as a self-contained post while still pointing readers to the canonical article at the end.
+10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit and Discord bodies stay prose unless the source material is genuinely list-shaped. Dev.to is blog-structured (see rule 9): use subheadings, and lists where they fit.
 11. **Lead with a problem-solution opener on X, LinkedIn, Bluesky, and Discord.** Open with a concrete developer pain point in one short sentence, then state how the topic, product, or event addresses it. The problem must be one a developer in the target audience would recognize on sight — concrete failure modes, not abstract benefits. Examples:
     - "Distributed transactions break in surprising ways. Dapr workflows make them deterministic and resumable."
     - "Agents lose state the moment a process restarts. Catalyst keeps it durable across runs."
