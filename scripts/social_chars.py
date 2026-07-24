@@ -13,7 +13,7 @@ import sys
 
 LIMITS: dict[str, dict[str, int]] = {
     "X":            {"body":  500},
-    "LinkedIn":     {"body":  500},
+    "LinkedIn":     {"body": 1000},
     "Bluesky":      {"body":  300},
     "Reddit":       {"title": 120, "body": 700},
     "Dapr Discord": {"title": 120, "body": 500},
