@@ -23,12 +23,12 @@ Always generate posts for all seven platforms in this order: X, LinkedIn, Bluesk
 | Platform | Title limit | Body / post limit | Variations | UTM source |
 |---|---|---|---|---|
 | X | — | 500 | 2 | `x` |
-| LinkedIn | — | 500 | 2 | `linkedin` |
+| LinkedIn | — | 1000 | 2 | `linkedin` |
 | Bluesky | — | 300 | 2 | `bluesky` |
 | Reddit | 120 | 700 | 2 | `reddit` |
 | Dapr Discord | 120 | 500 | 2 | `discord` |
-| Dev.to | 120 | 1200 | 1 | `dev-to` |
-| Medium | 120 | 1200 | 1 | `medium` |
+| Dev.to | 120 | 2500 | 1 | `dev-to` |
+| Medium | 120 | 2500 | 1 | `medium` |
 
 Reddit, Discord, Dev.to, and Medium posts are forum-style: each variation has a title and a body. All others are single-text posts. Medium uses the same blog-style content as Dev.to (see generation rule 9); the two sections are identical apart from the `utm_source` on the final link.
 
@@ -135,12 +135,12 @@ _Characters: N/500_
 ### Variation 1
 <post text>
 
-_Characters: N/500_
+_Characters: N/1000_
 
 ### Variation 2
 <post text>
 
-_Characters: N/500_
+_Characters: N/1000_
 
 ## Bluesky
 **Final link:** <link with utm_source=bluesky appended if Diagrid; otherwise original>
@@ -213,7 +213,7 @@ _Title characters: N/120_
 **Body:**
 <blog-style post: short intro, then 2-4 `###` sections, closing CTA and link>
 
-_Body characters: N/1200_
+_Body characters: N/2500_
 
 ## Medium
 **Final link:** <link with utm_source=medium appended if Diagrid; otherwise original>
@@ -226,7 +226,7 @@ _Title characters: N/120_
 **Body:**
 <same blog-style content as Dev.to, with the Medium final link at the end>
 
-_Body characters: N/1200_
+_Body characters: N/2500_
 ````
 
 When the link is non-Diagrid, set `utmMedium: null` and `utmCampaign: null` in the front-matter and omit the UTM medium and campaign lines from the prompt-metadata HTML comment (use `N/A`).
@@ -243,7 +243,7 @@ For each platform, generate the required number of variations following the conv
 6. **Emoji policy is per platform.** See `social-style-rules.md`. Reddit posts have no emojis.
 7. **Reddit and Discord titles** must obey the title rules in `style-rules.md` (no two-sentence colon, no "From ... To ..." structure).
 8. **Reddit tone** is shaped by the subreddit answer. If the user gave a Go-focused subreddit, use Go vocabulary; if `r/dapr`, assume the audience knows Dapr; if `generic`, use neutral technical phrasing.
-9. **Dev.to and Medium** each get one variation with a title (max 120 chars) and a body (max 1200 chars) structured like a short blog post, not a share blurb. Open with a short intro that leads with the technical takeaway, then use two to four sections with subheadings (`###` or `####`, never `##`, which is reserved for platform sections in the output file) covering the key points, and close with a CTA and the link. The article should read as a self-contained post while still pointing readers to the canonical article at the end. **Medium reuses the exact Dev.to content** — same title and body text — with only the final link differing (`utm_source=medium` instead of `utm_source=dev-to`).
+9. **Dev.to and Medium** each get one variation with a title (max 120 chars) and a body (max 2500 chars) structured like a short blog post, not a share blurb. Open with a short intro that leads with the technical takeaway, then use two to four sections with subheadings (`###` or `####`, never `##`, which is reserved for platform sections in the output file) covering the key points, and close with a CTA and the link. The article should read as a self-contained post while still pointing readers to the canonical article at the end. **Medium reuses the exact Dev.to content** — same title and body text — with only the final link differing (`utm_source=medium` instead of `utm_source=dev-to`).
 10. **Favor a list format for X and LinkedIn.** When the topic has 3+ discrete points, takeaways, features, or steps, structure the post as a short bulleted or numbered list rather than prose paragraphs. Lead with a one-line hook, then the list, then the link. At least one of the two variations on each of these platforms should use a list when the content supports it. Bluesky stays prose-first; Reddit and Discord bodies stay prose unless the source material is genuinely list-shaped. Dev.to and Medium are blog-structured (see rule 9): use subheadings, and lists where they fit.
 11. **Lead with a problem-solution opener on X, LinkedIn, Bluesky, and Discord.** Open with a concrete developer pain point in one short sentence, then state how the topic, product, or event addresses it. The problem must be one a developer in the target audience would recognize on sight — concrete failure modes, not abstract benefits. Examples:
     - "Distributed transactions break in surprising ways. Dapr workflows make them deterministic and resumable."

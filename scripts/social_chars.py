@@ -17,8 +17,8 @@ LIMITS: dict[str, dict[str, int]] = {
     "Bluesky":      {"body":  300},
     "Reddit":       {"title": 120, "body": 700},
     "Dapr Discord": {"title": 120, "body": 500},
-    "Dev.to":       {"title": 120, "body": 1200},
-    "Medium":       {"title": 120, "body": 1200},
+    "Dev.to":       {"title": 120, "body": 2500},
+    "Medium":       {"title": 120, "body": 2500},
 }
 
 EXPECTED_VARIATIONS: dict[str, int] = {
