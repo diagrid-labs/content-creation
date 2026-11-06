@@ -14,8 +14,8 @@ Interview responses
 - Intent: Understand how Dapr Workflow ensures reliability
 - CTAs:
   1. Join the Dapr Discord at http://bit.ly/dapr-discord
-  2. Try the Catalyst Workflow quickstart at https://docs.diagrid.io/getting-started/quickstarts/workflow
-- Key points to cover: Diagrid Catalyst provides a managed Dapr Workflow engine
+  2. Try the Diagrid Workflow quickstart at https://docs.diagrid.io/getting-started/quickstarts/workflow
+- Key points to cover: Diagrid provides a managed Dapr Workflow engine
 - Internal links:
   1. https://www.diagrid.io/blog/authoring-dapr-workflows-in-dotnet — explains the workflow engine internals and state persistence
   2. https://www.diagrid.io/blog/durable-agentic-workflows-with-dapr — ties durable execution to agentic workloads
@@ -25,7 +25,7 @@ Interview responses
 ---
 title: "How Dapr Workflow Persists State to Enable Durable Execution"
 slug: "dapr-workflow-state-persistence-durable-execution"
-excerpt: "Dapr Workflow turns long-running, fault-prone operations into reliable ones by persisting every step to a state store. Learn how the event-sourced history, replay, and the managed engine in Diagrid Catalyst work together."
+excerpt: "Dapr Workflow turns long-running, fault-prone operations into reliable ones by persisting every step to a state store. Learn how the event-sourced history, replay, and the managed engine in Diagrid work together."
 publishedAt:
 publishDateTime:
 author:
@@ -33,7 +33,7 @@ category: "Dapr"
 categories:
   - "Dapr"
   - "Workflows"
-  - "Catalyst"
+  - "Diagrid"
 tags:
   - "dapr"
   - "workflows"
@@ -46,7 +46,7 @@ ogImage: "/images/blog/dapr-workflow-state-persistence-durable-execution/feature
 featured:
 contentType: blog
 seoTitle: "How Dapr Workflow Persists State for Durable Execution"
-seoDescription: "See how Dapr Workflow uses event-sourced state persistence and replay to deliver durable execution, and how Diagrid Catalyst runs the engine for you."
+seoDescription: "See how Dapr Workflow uses event-sourced state persistence and replay to deliver durable execution, and how Diagrid runs the engine for you."
 canonicalUrl: "https://www.diagrid.io/blog/dapr-workflow-state-persistence-durable-execution"
 ---
 
@@ -62,7 +62,7 @@ canonicalUrl: "https://www.diagrid.io/blog/dapr-workflow-state-persistence-durab
 
 ## Introduction
 
-Every reliable distributed system eventually runs into the same question. Where does the state of an in-flight operation live when the process that was running it disappears? For agentic applications and long-running business flows, the answer cannot be "in memory," and a status column in a database only tells you what happened, not what to do next. [Dapr Workflow](https://www.diagrid.io/blog/authoring-dapr-workflows-in-dotnet) solves this by writing every step of a workflow to a pluggable state store as it runs, so the engine can pick any workflow back up, exactly where it left off, on any worker. In this post you will see how that persistence works, why an event-sourced history is the right shape for it, and how the [managed Dapr Workflow engine in Diagrid Catalyst](https://www.diagrid.io/blog/durable-agentic-workflows-with-dapr) turns those mechanics into a production-ready runtime.
+Every reliable distributed system eventually runs into the same question. Where does the state of an in-flight operation live when the process that was running it disappears? For agentic applications and long-running business flows, the answer cannot be "in memory," and a status column in a database only tells you what happened, not what to do next. [Dapr Workflow](https://www.diagrid.io/blog/authoring-dapr-workflows-in-dotnet) solves this by writing every step of a workflow to a pluggable state store as it runs, so the engine can pick any workflow back up, exactly where it left off, on any worker. In this post you will see how that persistence works, why an event-sourced history is the right shape for it, and how the [managed Dapr Workflow engine in Diagrid](https://www.diagrid.io/blog/durable-agentic-workflows-with-dapr) turns those mechanics into a production-ready runtime.
 
 ## Why in-memory workflows are not enough
 
@@ -76,7 +76,7 @@ Dapr Workflow uses a standard Dapr state store component as its persistence laye
 
 The split of responsibilities is worth sitting with. Your application code defines workflow functions and activities. The workflow engine inside the sidecar schedules activities, tracks progress, and owns the history. Workflow actors inside the engine are the concrete things that hold each workflow instance, and they read and write their state through the Dapr state management API. Your code never touches the state store directly. You never write a query, never design a schema, never add a migration.
 
-This is also the same mechanism whether you run Dapr yourself or through Diagrid Catalyst. What changes with Catalyst is who operates the engine and the state store, not how your workflow code is written.
+This is also the same mechanism whether you run Dapr yourself or through Diagrid. What changes with Diagrid is who operates the engine and the state store, not how your workflow code is written.
 
 ## The event-sourced history
 
@@ -107,13 +107,13 @@ That is the whole trick. Completed work stays completed. The only thing that run
 
 For this to hold, the orchestrator has to be deterministic. Given the same history, your workflow function must make the same decisions. Random values, wall-clock reads, and outbound calls live in activities, or they go through the workflow context so they are recorded in the history and replayed consistently. Follow that rule and the runtime does the rest.
 
-## How Catalyst manages the engine for you
+## How Diagrid manages the engine for you
 
 Running Dapr Workflow reliably in production is more than a flag on the sidecar. You need a state store you trust with business-critical history, workflow workers you scale and upgrade without dropping in-flight runs, and observability that lets you find the one workflow that got stuck out of the thousand that did not. That is real operational work.
 
-Diagrid Catalyst provides a managed Dapr Workflow engine and a managed state store behind it. You get centralized traces, metrics, and inspection for every workflow and activity, scoped to your app IDs, without building that plane yourself. The same Dapr SDKs you use locally talk to Catalyst in production.
+Diagrid provides a managed Dapr Workflow engine and a managed state store behind it. You get centralized traces, metrics, and inspection for every workflow and activity, scoped to your app IDs, without building that plane yourself. The same Dapr SDKs you use locally talk to Diagrid in production.
 
-Portability is part of the point. Workflow code written against open source Dapr runs unchanged on Catalyst. You keep the engine, you keep your code, you drop the ops burden.
+Portability is part of the point. Workflow code written against open source Dapr runs unchanged on Diagrid. You keep the engine, you keep your code, you drop the ops burden.
 
 ## What this means for agentic and distributed workloads
 
@@ -125,4 +125,4 @@ The trade-offs are real and small. The orchestrator has to stay deterministic. W
 
 ## Summary
 
-Durable execution is not magic. It is the product of writing every step of a workflow to a pluggable state store, modeling that state as an append-only event history, and replaying the history whenever a workflow needs to resume. Dapr Workflow gives you this out of the box, so crashes, redeploys, and transient failures stop being incidents and become routine events that the engine handles for you. Diagrid Catalyst runs that engine as a managed service, so you can focus on workflow logic instead of state stores and worker clusters. When you are ready to see it in practice, try the [Catalyst Workflow quickstart](https://docs.diagrid.io/getting-started/quickstarts/workflow) and follow along step by step. If you want to talk through architecture or ask questions, join the Dapr community on Discord at http://bit.ly/dapr-discord, where maintainers and other builders hang out.
+Durable execution is not magic. It is the product of writing every step of a workflow to a pluggable state store, modeling that state as an append-only event history, and replaying the history whenever a workflow needs to resume. Dapr Workflow gives you this out of the box, so crashes, redeploys, and transient failures stop being incidents and become routine events that the engine handles for you. Diagrid runs that engine as a managed service, so you can focus on workflow logic instead of state stores and worker clusters. When you are ready to see it in practice, try the [Diagrid Workflow quickstart](https://docs.diagrid.io/getting-started/quickstarts/workflow) and follow along step by step. If you want to talk through architecture or ask questions, join the Dapr community on Discord at http://bit.ly/dapr-discord, where maintainers and other builders hang out.

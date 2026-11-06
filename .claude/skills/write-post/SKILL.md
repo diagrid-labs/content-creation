@@ -52,13 +52,13 @@ Read [document-types.md](../../post-common/document-types.md) and present the li
 ### Step 5: Intent
 
 > What is the intent of this post? What outcome or action do you want from the reader after they finish reading? (This is not the CTA, this is mentioned in the next question.)
-> For example: "Understand how Dapr pub/sub works", "Understand how to use new feature A in Catalyst", "Sign up for a webinar to learn about topic X".
+> For example: "Understand how Dapr pub/sub works", "Understand how to use new feature A in Diagrid", "Sign up for a webinar to learn about topic X".
 
 ### Step 6: Calls to Action
 
 > What are the call to actions (CTAs) you want to include? You can pick multiple:
 > For example:
-> 1. Sign up for a free Catalyst account at https://catalyst.diagrid.io/
+> 1. Sign up for a free Diagrid account at https://catalyst.diagrid.io/
 > 2. Join the Dapr Discord at https://diagrid.ws/dapr-discord
 > 3. Watch a YouTube video on our Diagrid channel: https://www.youtube.com/@diagridio (ask a follow up question to which video should be linked)
 > 4. Something else (ask a follow up question what the CTA should be)
