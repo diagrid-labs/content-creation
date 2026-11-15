@@ -12,7 +12,7 @@ description: This defines the rules of a Diagrid styled mermaid diagram. Use thi
 ## Node formats
 
 - Application or service node: `APP(My App)`
-- Diagrid node: `CAT(Catalyst)`
+- Diagrid node: `CAT(Diagrid)`
 - State store node: `STATE[(State store)]`
 - Pub/Sub message broker or queue: `BROKER@{ shape: das, label: "Message broker" }`
 - Workflow activity node: `ACT(Activity)`
@@ -48,7 +48,7 @@ config:
 ---
 flowchart LR
   APP1(App 1)
-  subgraph Catalyst
+  subgraph Diagrid
     APPID1(App ID1)
     APPID2(App ID2)
   end
@@ -57,7 +57,7 @@ flowchart LR
   APPID1-->APPID2
   APPID2-->APP2
 
-  style Catalyst stroke:#0bdda3
+  style Diagrid stroke:#0bdda3
 ```
 
 ```mermaid
@@ -79,7 +79,7 @@ config:
 ---
 flowchart LR
   APP1(App 1)
-  subgraph Catalyst
+  subgraph Diagrid
     APPID1(App ID1)
     APPID2(App ID2)
   end
@@ -90,12 +90,12 @@ flowchart LR
   BROKER-.->APPID2
   APPID2-->APP2
 
-  style Catalyst stroke:#0bdda3
+  style Diagrid stroke:#0bdda3
 ```
 
 ```mermaid
 ---
-title: Bidirectional communication between workflow  application, Catalyst, and state store
+title: Bidirectional communication between workflow  application, Diagrid, and state store
 config:
   theme: 'base'
   themeVariables:
@@ -112,7 +112,7 @@ config:
 ---
 flowchart LR
   APP(My Workflow App)
-  CAT(Catalyst 
+  CAT(Diagrid 
   Workflow Engine)
   STORAGE[(State Store)]
   APP<-->CAT

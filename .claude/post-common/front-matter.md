@@ -33,7 +33,7 @@ Interview responses
 - Target audience: Backend developers who want to build reliable distributed applications
 - Intent: Understand how Dapr Workflow provides reliability
 - CTAs:
-  1. Sign up for a free Catalyst account at https://catalyst.diagrid.io/
+  1. Sign up for a free Diagrid account at https://catalyst.diagrid.io/
   2. Watch the YouTube video: https://youtu.be/T4EHE-q_F34?si=ulDi7KpUkDmBVXFa
 - Key points to cover: workflow replay, comparisons with other approaches
 - Internal links:
